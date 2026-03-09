@@ -8,6 +8,7 @@
     <UseWPF>true</UseWPF>
     <AssemblyName>PomodoroTimer</AssemblyName>
     <RootNamespace>PomodoroTimer</RootNamespace>
+    <ApplicationIcon>Assets\32.ico</ApplicationIcon>
   </PropertyGroup>
 
   <ItemGroup>
@@ -17,6 +18,10 @@
 
   <ItemGroup>
     <Resource Include="Fonts\DSEG7Classic-Regular.ttf" />
+    <Resource Include="Assets\16.ico" />
+    <Resource Include="Assets\32.ico" />
+    <Resource Include="Assets\48.ico" />
+    <Resource Include="Assets\256.ico" />
   </ItemGroup>
 
 </Project>

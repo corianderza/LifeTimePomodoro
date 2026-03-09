@@ -18,7 +18,9 @@ public partial class App : Application
         ShutdownMode = ShutdownMode.OnExplicitShutdown;
 
         _trayIcon = (TaskbarIcon)FindResource("TrayIcon");
-        _trayIcon.Icon = CreateTrayIcon();
+        var iconStream = Application.GetResourceStream(new Uri("pack://application:,,,/Assets/16.ico"))?.Stream;
+        if (iconStream != null)
+            _trayIcon.Icon = new System.Drawing.Icon(iconStream);
         _trayIcon.TrayMouseDoubleClick += (_, _) => ShowMainWindow();
 
         var menu = new ContextMenu();
@@ -81,30 +83,6 @@ public partial class App : Application
                 key.DeleteValue("PomodoroTimer", throwOnMissingValue: false);
         }
         catch { /* ignore registry errors */ }
-    }
-
-    private static System.Drawing.Icon CreateTrayIcon()
-    {
-        var bmp = new System.Drawing.Bitmap(32, 32);
-        using var g = System.Drawing.Graphics.FromImage(bmp);
-        g.SmoothingMode = System.Drawing.Drawing2D.SmoothingMode.AntiAlias;
-        g.Clear(System.Drawing.Color.Transparent);
-
-        // Red circle background
-        using var bgBrush = new System.Drawing.SolidBrush(System.Drawing.Color.FromArgb(220, 53, 69));
-        g.FillEllipse(bgBrush, 1, 1, 30, 30);
-
-        // White "P" letter
-        using var font = new System.Drawing.Font("Segoe UI", 16f, System.Drawing.FontStyle.Bold);
-        using var fBrush = new System.Drawing.SolidBrush(System.Drawing.Color.White);
-        var sf = new System.Drawing.StringFormat
-        {
-            Alignment = System.Drawing.StringAlignment.Center,
-            LineAlignment = System.Drawing.StringAlignment.Center
-        };
-        g.DrawString("P", font, fBrush, new System.Drawing.RectangleF(0, 0, 32, 32), sf);
-
-        return System.Drawing.Icon.FromHandle(bmp.GetHicon());
     }
 
     protected override void OnExit(ExitEventArgs e)
