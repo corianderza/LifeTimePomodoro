@@ -5,15 +5,16 @@
         Height="280" Width="420"
         ResizeMode="NoResize"
         WindowStartupLocation="CenterOwner"
-        Background="#12122A"
+    Background="#2A1742"
+    Opacity="0.95"
         FontFamily="Segoe UI"
         ShowInTaskbar="False">
 
     <Window.Resources>
         <Style x:Key="DlgButton" TargetType="Button">
-            <Setter Property="Background" Value="#1E1E40"/>
-            <Setter Property="Foreground" Value="#C0C8D8"/>
-            <Setter Property="BorderBrush" Value="#2A2A60"/>
+            <Setter Property="Background" Value="#AA2A1D48"/>
+            <Setter Property="Foreground" Value="#FFEAD8FF"/>
+            <Setter Property="BorderBrush" Value="#66FFD27A"/>
             <Setter Property="BorderThickness" Value="1"/>
             <Setter Property="Height" Value="34"/>
             <Setter Property="MinWidth" Value="90"/>
@@ -30,10 +31,10 @@
                         </Border>
                         <ControlTemplate.Triggers>
                             <Trigger Property="IsMouseOver" Value="True">
-                                <Setter TargetName="Root" Property="Background" Value="#2A2A68"/>
+                                <Setter TargetName="Root" Property="Background" Value="#CC4D2776"/>
                             </Trigger>
                             <Trigger Property="IsPressed" Value="True">
-                                <Setter TargetName="Root" Property="Background" Value="#E94560"/>
+                                <Setter TargetName="Root" Property="Background" Value="#CC9C2D4C"/>
                             </Trigger>
                             <Trigger Property="IsEnabled" Value="False">
                                 <Setter Property="Opacity" Value="0.35"/>
@@ -45,14 +46,27 @@
         </Style>
 
         <Style TargetType="ComboBox">
-            <Setter Property="Background" Value="#1E1E40"/>
-            <Setter Property="Foreground" Value="#C0C8D8"/>
-            <Setter Property="BorderBrush" Value="#2A2A60"/>
-            <Setter Property="Height" Value="34"/>
+            <Setter Property="Background" Value="#FFF7EED4"/>
+            <Setter Property="Foreground" Value="#000000"/>
+            <Setter Property="BorderBrush" Value="#88B08A56"/>
+            <Setter Property="Height" Value="21"/>
+            <Setter Property="FontSize" Value="13"/>
+            <Setter Property="Padding" Value="6,0"/>
+        </Style>
+
+        <Style TargetType="ComboBoxItem">
+            <Setter Property="Foreground" Value="#000000"/>
+            <Setter Property="FontSize" Value="13"/>
         </Style>
     </Window.Resources>
 
-    <Grid Margin="24,20,24,20">
+    <Border Margin="14"
+            Padding="10"
+            Background="#8C2A1742"
+            BorderBrush="#66FFD27A"
+            BorderThickness="1"
+            CornerRadius="12">
+    <Grid Margin="24,20,24,10">
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="16"/>
@@ -67,7 +81,7 @@
         <!-- Section header -->
         <TextBlock Grid.Row="0"
                    Text="ЗВУКОВОЙ СИГНАЛ ПО ЗАВЕРШЕНИИ"
-                   Foreground="#3A4A60"
+                   Foreground="#FFE6D4F8"
                    FontSize="11" FontWeight="Bold"/>
 
         <!-- Sound selector row -->
@@ -93,7 +107,7 @@
         <!-- Autostart checkbox -->
         <CheckBox x:Name="ChkAutostart"
                   Grid.Row="4"
-                  Foreground="#8090A8"
+                  Foreground="#FFE6D4F8"
                   FontSize="12"
                   Content="Запускать при старте Windows"
                   Margin="0,0,0,0"/>
@@ -101,9 +115,9 @@
         <!-- Hint text -->
         <TextBlock Grid.Row="5"
                    x:Name="TbHint"
-                   Foreground="#3A4A60"
+                   Foreground="#FFD1BCD8"
                    FontSize="10"
-                   Margin="0,6,0,0"
+                   Margin="0,6,0,6"
                    TextWrapping="Wrap"/>
 
         <!-- OK / Cancel -->
@@ -114,8 +128,9 @@
                     Click="BtnCancel_Click"/>
             <Button Style="{StaticResource DlgButton}"
                     Content="ОК"
-                    Foreground="#00E87A"
+                    Foreground="#FFD3FFAE"
                     Click="BtnOk_Click"/>
         </StackPanel>
     </Grid>
+    </Border>
 </Window>

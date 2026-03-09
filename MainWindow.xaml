@@ -132,11 +132,11 @@
                            HorizontalAlignment="Left"
                            Margin="-70,0,0,0"/>
 
-                <Border Background="#01000000"
+                <Border Background="#00000010"
                         Height="32"
                         HorizontalAlignment="Stretch"
                         VerticalAlignment="Center"
-                        Margin="-70,0,10,0"
+                        Margin="-70,0,-60,0"
                         MouseLeftButtonDown="DragArea_MouseLeftButtonDown"/>
 
                 <StackPanel Orientation="Horizontal" HorizontalAlignment="Right"
