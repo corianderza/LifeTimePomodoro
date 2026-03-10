@@ -113,7 +113,7 @@
     <Grid>
         <Image Source="/Assets/Pom500x500.png" Stretch="Fill"/>
 
-        <Grid Margin="70,58,70,56">
+        <Grid Margin="70,48,70,56">
             <Grid.RowDefinitions>
                 <RowDefinition Height="Auto"/>
                 <RowDefinition Height="Auto"/>
@@ -124,7 +124,7 @@
             </Grid.RowDefinitions>
 
             <Grid Grid.Row="0" Margin="0,0,0,10">
-                <TextBlock Text="POMODORO TIMER"
+                <TextBlock Text=" "
                            Foreground="#6b576d"
                            FontSize="12"
                            FontWeight="Bold"
@@ -132,15 +132,15 @@
                            HorizontalAlignment="Left"
                            Margin="-70,0,0,0"/>
 
-                <Border Background="#00000010"
-                        Height="32"
+                <Border Background="#00000000"
+                        Height="142"
                         HorizontalAlignment="Stretch"
                         VerticalAlignment="Center"
-                        Margin="-70,0,-60,0"
+                        Margin="-45,-50,-40,0"
                         MouseLeftButtonDown="DragArea_MouseLeftButtonDown"/>
 
                 <StackPanel Orientation="Horizontal" HorizontalAlignment="Right"
-                            VerticalAlignment="Center" Margin="0,0,-60,0">
+                            VerticalAlignment="Top" Margin="0,-50,50,0">
                     <Button x:Name="BtnSettings"
                             Style="{StaticResource WindowChromeButton}"
                             Content="⚙"
@@ -167,7 +167,7 @@
                     BorderBrush="#66FFD27A"
                     BorderThickness="1"
                     Padding="2,8,2,14"
-                    Margin="0,50,0,0">
+                    Margin="0,0,0,0">
                 <StackPanel>
                     <TextBlock x:Name="TbDisplay"
                                Text="00:00"
