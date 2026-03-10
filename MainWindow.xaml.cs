@@ -15,7 +15,7 @@ public partial class MainWindow : Window
     private enum TimerState { Idle, Running, Paused }
     private TimerState _state = TimerState.Idle;
 
-    private int _minutesSet = 0;        // Minutes configured by the user
+    private int _minutesSet = 30;       // Minutes configured by the user
     private int _secondsRemaining = 0;  // Seconds remaining during countdown
 
     private readonly DispatcherTimer _timer;
@@ -72,7 +72,7 @@ public partial class MainWindow : Window
             _secondsRemaining = 0;
             _timer.Stop();
             _state = TimerState.Idle;
-            _minutesSet = 0;
+            _minutesSet = 30;
 
             UpdateDisplay();
             UpdateButtons();
