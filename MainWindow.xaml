@@ -3,9 +3,9 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         Title="Pomodoro Timer"
         Icon="/Assets/32.ico"
-    Height="400" Width="400"
-    MinHeight="400" MinWidth="400"
-    MaxHeight="400" MaxWidth="400"
+    Height="460" Width="460"
+    MinHeight="460" MinWidth="460"
+    MaxHeight="460" MaxWidth="460"
     Background="Transparent"
     AllowsTransparency="True"
     WindowStyle="None"
@@ -124,7 +124,12 @@
     </Window.Resources>
 
     <Grid>
-        <Image x:Name="ImgBackground" Source="/Assets/Pom400x400.png" Stretch="Fill"/>
+        <Grid x:Name="ContentGrid" Margin="30">
+        <Image x:Name="ImgBackground" Source="/Assets/Pom400x400.png" Stretch="Fill">
+            <Image.Effect>
+                <DropShadowEffect Color="#FFFF5500" BlurRadius="28" ShadowDepth="0" Opacity="0"/>
+            </Image.Effect>
+        </Image>
 
         <Grid x:Name="PanelFull" Margin="56,38,56,45">
             <Grid.RowDefinitions>
@@ -377,6 +382,7 @@
                     </StackPanel>
                 </Button>
             </Grid>
+        </Grid>
         </Grid>
     </Grid>
 </Window>

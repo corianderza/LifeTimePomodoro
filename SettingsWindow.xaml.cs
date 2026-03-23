@@ -25,12 +25,14 @@ public partial class SettingsWindow : Window
         {
             SelectedSoundPath = current.SelectedSoundPath,
             StartWithWindows  = current.StartWithWindows,
-            AlwaysOnTop       = current.AlwaysOnTop
+            AlwaysOnTop       = current.AlwaysOnTop,
+            SilentMode        = current.SilentMode
         };
 
         LoadSounds();
         ChkAutostart.IsChecked    = _working.StartWithWindows;
         ChkAlwaysOnTop.IsChecked  = _working.AlwaysOnTop;
+        ChkSilentMode.IsChecked   = _working.SilentMode;
     }
 
     // ─── Load .wav files from Windows Media folder ────────────────
@@ -96,6 +98,7 @@ public partial class SettingsWindow : Window
     {
         _working.StartWithWindows = ChkAutostart.IsChecked == true;
         _working.AlwaysOnTop      = ChkAlwaysOnTop.IsChecked == true;
+        _working.SilentMode       = ChkSilentMode.IsChecked == true;
         Result = _working;
         DialogResult = true;
     }

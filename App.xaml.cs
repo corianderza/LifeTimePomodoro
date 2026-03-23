@@ -57,6 +57,11 @@ public partial class App : Application
         _mainWindow.Activate();
     }
 
+    internal void ShowTrayNotification()
+    {
+        _trayIcon?.ShowBalloonTip("Pomodoro Timer", "Таймер завершён!", BalloonIcon.Info);
+    }
+
     internal void ShowSettings()
     {
         var dlg = new SettingsWindow(Settings);
