@@ -2,13 +2,13 @@
 
   <PropertyGroup>
     <OutputType>WinExe</OutputType>
-    <TargetFramework>net8.0-windows</TargetFramework>
+    <TargetFramework>net8.0-windows10.0.17763.0</TargetFramework>
     <Nullable>enable</Nullable>
     <ImplicitUsings>enable</ImplicitUsings>
     <UseWPF>true</UseWPF>
     <AssemblyName>PomodoroTimer</AssemblyName>
     <RootNamespace>PomodoroTimer</RootNamespace>
-    <ApplicationIcon>Assets\32.ico</ApplicationIcon>
+    <ApplicationIcon>Assets\ico\32.ico</ApplicationIcon>
   </PropertyGroup>
 
   <ItemGroup>

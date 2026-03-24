@@ -41,7 +41,6 @@ public partial class MainWindow : Window
     }
     [DllImport("user32.dll")] private static extern bool FlashWindowEx(ref FLASHWINFO pwfi);
     private const uint FLASHW_ALL       = 0x00000003;
-    private const uint FLASHW_TIMERNOFG = 0x0000000C;
 
     // ─── WndProc: minimize on taskbar click when focused ──────────
     protected override void OnSourceInitialized(EventArgs e)
@@ -221,7 +220,7 @@ public partial class MainWindow : Window
             MinWidth = MaxWidth = Width = 230;
             MinHeight = MaxHeight = Height = 230;
             ContentGrid.Margin = new Thickness(15);
-            ImgBackground.Source = new BitmapImage(new Uri("pack://application:,,,/Assets/Pom200x200.png"));
+            ImgBackground.Source = new BitmapImage(new Uri("pack://application:,,,/Assets/bkg/Pom200x200.png"));
             PanelFull.Visibility = Visibility.Collapsed;
             PanelCompact.Visibility = Visibility.Visible;
         }
@@ -230,7 +229,7 @@ public partial class MainWindow : Window
             MinWidth = MaxWidth = Width = 460;
             MinHeight = MaxHeight = Height = 460;
             ContentGrid.Margin = new Thickness(30);
-            ImgBackground.Source = new BitmapImage(new Uri("pack://application:,,,/Assets/Pom400x400.png"));
+            ImgBackground.Source = new BitmapImage(new Uri("pack://application:,,,/Assets/bkg/Pom400x400.png"));
             PanelFull.Visibility = Visibility.Visible;
             PanelCompact.Visibility = Visibility.Collapsed;
         }
@@ -294,7 +293,7 @@ public partial class MainWindow : Window
         {
             cbSize    = (uint)Marshal.SizeOf<FLASHWINFO>(),
             hwnd      = hwnd,
-            dwFlags   = FLASHW_ALL | FLASHW_TIMERNOFG,
+            dwFlags   = FLASHW_ALL,
             uCount    = 10,
             dwTimeout = 0
         };
@@ -305,7 +304,7 @@ public partial class MainWindow : Window
     private void StartWindowGlow()
     {
         if (ImgBackground.Effect is not DropShadowEffect glow) return;
-        var anim = new DoubleAnimation(0.0, 1.0, TimeSpan.FromMilliseconds(250))
+        var anim = new DoubleAnimation(0.0, 1.0, TimeSpan.FromMilliseconds(550))
         {
             AutoReverse    = true,
             RepeatBehavior = new RepeatBehavior(10)

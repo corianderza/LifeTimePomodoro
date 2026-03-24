@@ -1,7 +1,10 @@
-﻿using System.Windows;
+﻿using System.Runtime.InteropServices;
+using System.Windows;
 using System.Windows.Controls;
 using Hardcodet.Wpf.TaskbarNotification;
 using Microsoft.Win32;
+using Windows.Data.Xml.Dom;
+using Windows.UI.Notifications;
 
 namespace PomodoroTimer;
 
@@ -18,7 +21,7 @@ public partial class App : Application
         ShutdownMode = ShutdownMode.OnExplicitShutdown;
 
         _trayIcon = (TaskbarIcon)FindResource("TrayIcon");
-        var iconStream = Application.GetResourceStream(new Uri("pack://application:,,,/Assets/16.ico"))?.Stream;
+        var iconStream = Application.GetResourceStream(new Uri("pack://application:,,,/Assets/ico/16.ico"))?.Stream;
         if (iconStream != null)
             _trayIcon.Icon = new System.Drawing.Icon(iconStream);
         _trayIcon.TrayMouseDoubleClick += (_, _) => ShowMainWindow();
@@ -43,6 +46,7 @@ public partial class App : Application
 
         // Apply autostart setting on first run
         ApplyAutostart(Settings.StartWithWindows);
+        RegisterAumid();
 
         _mainWindow = new MainWindow();
         _mainWindow.ApplyAlwaysOnTop(Settings.AlwaysOnTop);
@@ -59,8 +63,51 @@ public partial class App : Application
 
     internal void ShowTrayNotification()
     {
-        _trayIcon?.ShowBalloonTip("Pomodoro Timer", "Таймер завершён!", BalloonIcon.Info);
+        try
+        {
+            const string aumid = "PomodoroTimer.App";
+            var xml = new XmlDocument();
+            xml.LoadXml("""
+                <toast scenario="alarm">
+                  <visual>
+                    <binding template="ToastGeneric">
+                      <text>Pomodoro Timer</text>
+                      <text>Таймер завершён!</text>
+                    </binding>
+                  </visual>
+                  <audio silent="true"/>
+                </toast>
+                """);
+            var notifier = ToastNotificationManager.CreateToastNotifier(aumid);
+            notifier.Show(new ToastNotification(xml));
+        }
+        catch {
+            _trayIcon?.ShowBalloonTip("Pomodoro Timer", "Таймер завершён!", BalloonIcon.Info);
+        }
     }
+
+    // ─── Register AUMID in registry (required for unpackaged WinRT Toast) ───
+    private static void RegisterAumid()
+    {
+        try
+        {
+            const string aumid = "PomodoroTimer.App";
+
+            // Tell Windows which AUMID belongs to this process
+            SetCurrentProcessExplicitAppUserModelID(aumid);
+
+            using var key = Registry.CurrentUser.CreateSubKey(
+                @"SOFTWARE\Classes\AppUserModelId\" + aumid);
+            key?.SetValue("DisplayName", "Pomodoro Timer");
+            var exePath = System.Diagnostics.Process.GetCurrentProcess().MainModule?.FileName ?? "";
+            key?.SetValue("IconUri", exePath);
+        }
+        catch { /* ignore registry errors */ }
+    }
+
+    [DllImport("shell32.dll", SetLastError = true)]
+    private static extern int SetCurrentProcessExplicitAppUserModelID(
+        [MarshalAs(UnmanagedType.LPWStr)] string appId);
 
     internal void ShowSettings()
     {
