@@ -294,7 +294,7 @@ public partial class MainWindow : Window
             cbSize    = (uint)Marshal.SizeOf<FLASHWINFO>(),
             hwnd      = hwnd,
             dwFlags   = FLASHW_ALL,
-            uCount    = 10,
+            uCount    = 6,
             dwTimeout = 0
         };
         FlashWindowEx(ref info);
@@ -307,7 +307,7 @@ public partial class MainWindow : Window
         var anim = new DoubleAnimation(0.0, 1.0, TimeSpan.FromMilliseconds(550))
         {
             AutoReverse    = true,
-            RepeatBehavior = new RepeatBehavior(10)
+            RepeatBehavior = new RepeatBehavior(6)
         };
         glow.BeginAnimation(DropShadowEffect.OpacityProperty, anim);
     }
