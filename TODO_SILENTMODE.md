@@ -179,7 +179,7 @@
 | `PomodoroTimer.sln` | Добавить проект `PomodoroTimer.Package` |
 | `PomodoroTimer.Package/Package.appxmanifest` | Identity, Visual Assets, Toast Extension, StartupTask |
 | `App.xaml.cs` | Удалить `RegisterAumid()`, упростить `ShowTrayNotification()`, заменить `ApplyAutostart()` |
-| `Assets/` | Сгенерировать Store-иконки из `Clean_835x835.png` |
+| `Assets/` | Сгенерировать Store-иконки из `Gemini_Generated_Image_ie835.png` |
 
 ## Имеющиеся ассеты для иконок
 

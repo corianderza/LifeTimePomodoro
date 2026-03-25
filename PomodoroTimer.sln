@@ -1,6 +1,6 @@
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio Version 17
-VisualStudioVersion = 17.5.2.0
+# Visual Studio Version 18
+VisualStudioVersion = 18.4.11612.150 stable
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PomodoroTimer", "PomodoroTimer.csproj", "{2E67D1EB-7E57-3C53-013C-2676E4C8CEBA}"
 EndProject
@@ -19,6 +19,6 @@ Global
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
-		SolutionGuid = {81489A1D-48EE-48D6-B991-188416D506FF}
+		SolutionGuid = {31854DBA-916A-4E18-80C5-9899C491537E}
 	EndGlobalSection
 EndGlobal

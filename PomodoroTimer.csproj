@@ -9,6 +9,11 @@
     <AssemblyName>PomodoroTimer</AssemblyName>
     <RootNamespace>PomodoroTimer</RootNamespace>
     <ApplicationIcon>Assets\ico\32.ico</ApplicationIcon>
+    <DefaultLanguage>en-US</DefaultLanguage>
+    <EnableMsixTooling>true</EnableMsixTooling>
+    <PackageCertificateThumbprint>D17F2375F6A3FCCEC161D77813FCA801106C30E2</PackageCertificateThumbprint>
+    <PackageCertificateKeyFile>PomodoroTimer_TemporaryKey.pfx</PackageCertificateKeyFile>
+    <AppxPackageSigningEnabled>True</AppxPackageSigningEnabled>
   </PropertyGroup>
 
   <ItemGroup>
@@ -19,6 +24,12 @@
   <ItemGroup>
     <Resource Include="Fonts\**" />
     <Resource Include="Assets\**" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Content Include="Images\**">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
   </ItemGroup>
 
 </Project>

@@ -1,8 +1,7 @@
-﻿using System.Runtime.InteropServices;
+﻿using System.Threading;
 using System.Windows;
 using System.Windows.Controls;
 using Hardcodet.Wpf.TaskbarNotification;
-using Microsoft.Win32;
 using Windows.Data.Xml.Dom;
 using Windows.UI.Notifications;
 
@@ -10,6 +9,7 @@ namespace PomodoroTimer;
 
 public partial class App : Application
 {
+    private static Mutex? _singleInstanceMutex;
     private TaskbarIcon? _trayIcon;
     private MainWindow? _mainWindow;
 
@@ -18,6 +18,14 @@ public partial class App : Application
     protected override void OnStartup(StartupEventArgs e)
     {
         base.OnStartup(e);
+
+        _singleInstanceMutex = new Mutex(true, "PomodoroTimer_SingleInstance", out bool isFirstInstance);
+        if (!isFirstInstance)
+        {
+            Shutdown();
+            return;
+        }
+
         ShutdownMode = ShutdownMode.OnExplicitShutdown;
 
         _trayIcon = (TaskbarIcon)FindResource("TrayIcon");
@@ -46,7 +54,6 @@ public partial class App : Application
 
         // Apply autostart setting on first run
         ApplyAutostart(Settings.StartWithWindows);
-        RegisterAumid();
 
         _mainWindow = new MainWindow();
         _mainWindow.ApplyAlwaysOnTop(Settings.AlwaysOnTop);
@@ -65,7 +72,6 @@ public partial class App : Application
     {
         try
         {
-            const string aumid = "PomodoroTimer.App";
             var xml = new XmlDocument();
             xml.LoadXml("""
                 <toast scenario="alarm">
@@ -76,38 +82,22 @@ public partial class App : Application
                     </binding>
                   </visual>
                   <audio silent="true"/>
+                  <actions>
+                    <action content="Закрыть" arguments="dismiss" activationType="system"/>
+                  </actions>
                 </toast>
                 """);
-            var notifier = ToastNotificationManager.CreateToastNotifier(aumid);
-            notifier.Show(new ToastNotification(xml));
+            var notification = new ToastNotification(xml)
+            {
+                Priority = ToastNotificationPriority.High,
+                SuppressPopup = false
+            };
+            ToastNotificationManager.CreateToastNotifier().Show(notification);
         }
         catch {
             _trayIcon?.ShowBalloonTip("Pomodoro Timer", "Таймер завершён!", BalloonIcon.Info);
         }
     }
-
-    // ─── Register AUMID in registry (required for unpackaged WinRT Toast) ───
-    private static void RegisterAumid()
-    {
-        try
-        {
-            const string aumid = "PomodoroTimer.App";
-
-            // Tell Windows which AUMID belongs to this process
-            SetCurrentProcessExplicitAppUserModelID(aumid);
-
-            using var key = Registry.CurrentUser.CreateSubKey(
-                @"SOFTWARE\Classes\AppUserModelId\" + aumid);
-            key?.SetValue("DisplayName", "Pomodoro Timer");
-            var exePath = System.Diagnostics.Process.GetCurrentProcess().MainModule?.FileName ?? "";
-            key?.SetValue("IconUri", exePath);
-        }
-        catch { /* ignore registry errors */ }
-    }
-
-    [DllImport("shell32.dll", SetLastError = true)]
-    private static extern int SetCurrentProcessExplicitAppUserModelID(
-        [MarshalAs(UnmanagedType.LPWStr)] string appId);
 
     internal void ShowSettings()
     {
@@ -122,21 +112,17 @@ public partial class App : Application
         }
     }
 
-    internal static void ApplyAutostart(bool enable)
+    internal static async void ApplyAutostart(bool enable)
     {
         try
         {
-            using var key = Registry.CurrentUser.OpenSubKey(
-                @"SOFTWARE\Microsoft\Windows\CurrentVersion\Run", writable: true);
-            if (key == null) return;
-
-            var exePath = System.Diagnostics.Process.GetCurrentProcess().MainModule?.FileName ?? "";
+            var startupTask = await global::Windows.ApplicationModel.StartupTask.GetAsync("PomodoroTimerStartup");
             if (enable)
-                key.SetValue("PomodoroTimer", $"\"{exePath}\"");
+                await startupTask.RequestEnableAsync();
             else
-                key.DeleteValue("PomodoroTimer", throwOnMissingValue: false);
+                startupTask.Disable();
         }
-        catch { /* ignore registry errors */ }
+        catch { /* ignore */ }
     }
 
     protected override void OnExit(ExitEventArgs e)
