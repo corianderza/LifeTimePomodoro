@@ -66,7 +66,6 @@ public partial class App : Application
         _mainWindow.Show();
         _mainWindow.WindowState = WindowState.Normal;
         _mainWindow.Activate();
-        _mainWindow.InvalidateIconicBitmaps();
     }
 
     internal void ShowTrayNotification()
