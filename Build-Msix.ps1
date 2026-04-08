@@ -21,7 +21,7 @@ Write-Host "`n[0/7] Trusting dev certificate..." -ForegroundColor Cyan
 $cert = Get-Item "cert:\CurrentUser\My\$certThumb" -ErrorAction SilentlyContinue
 if (-not $cert) {
     Write-Host "  Certificate not in CurrentUser\My, importing from PFX..."
-    certutil -f -importpfx "$pfxFile"
+    certutil -user -f -importpfx "$pfxFile"
     $cert = Get-Item "cert:\CurrentUser\My\$certThumb"
 }
 $store = New-Object System.Security.Cryptography.X509Certificates.X509Store("TrustedPeople", "CurrentUser")

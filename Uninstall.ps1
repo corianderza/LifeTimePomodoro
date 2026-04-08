@@ -7,8 +7,17 @@
 
 $ErrorActionPreference = "Stop"
 
+# ── Автоповышение прав администратора ────────────────────────────────────
+if (-NOT ([Security.Principal.WindowsPrincipal][Security.Principal.WindowsIdentity]::GetCurrent()).IsInRole([Security.Principal.WindowsBuiltInRole]"Administrator")) {
+    Write-Host "Требуются права администратора. Перезапуск с повышением..." -ForegroundColor Yellow
+    Start-Process pwsh.exe "-ExecutionPolicy Bypass -NoProfile -File `"$PSCommandPath`"" -Verb RunAs
+    exit
+}
+
 $packageName = "PomodoroTimer"
 $certThumb   = "D17F2375F6A3FCCEC161D77813FCA801106C30E2"
+
+try {
 
 Write-Host "`n=== PomodoroTimer — полное удаление ===`n" -ForegroundColor Yellow
 
@@ -27,29 +36,23 @@ if ($pkgs) {
 
 # ── 2. Удаляем сертификат из TrustedPeople ───────────────────────────────
 Write-Host "[2/5] Удаление сертификата из CurrentUser\TrustedPeople..." -ForegroundColor Cyan
-$store = New-Object System.Security.Cryptography.X509Certificates.X509Store("TrustedPeople", "CurrentUser")
-$store.Open("ReadWrite")
-$certs = $store.Certificates | Where-Object { $_.Thumbprint -eq $certThumb }
-if ($certs) {
-    foreach ($c in $certs) { $store.Remove($c) }
+$certPath = "cert:\CurrentUser\TrustedPeople\$certThumb"
+if (Test-Path $certPath) {
+    Remove-Item $certPath -Force
     Write-Host "  Удалён из TrustedPeople." -ForegroundColor Green
 } else {
     Write-Host "  Не найден в TrustedPeople — пропускаем." -ForegroundColor Gray
 }
-$store.Close()
 
 # ── 3. Удаляем сертификат из личного хранилища (My) ─────────────────────
 Write-Host "[3/5] Удаление сертификата из CurrentUser\My..." -ForegroundColor Cyan
-$storeMy = New-Object System.Security.Cryptography.X509Certificates.X509Store("My", "CurrentUser")
-$storeMy.Open("ReadWrite")
-$certsMy = $storeMy.Certificates | Where-Object { $_.Thumbprint -eq $certThumb }
-if ($certsMy) {
-    foreach ($c in $certsMy) { $storeMy.Remove($c) }
+$certPathMy = "cert:\CurrentUser\My\$certThumb"
+if (Test-Path $certPathMy) {
+    Remove-Item $certPathMy -Force
     Write-Host "  Удалён из CurrentUser\My." -ForegroundColor Green
 } else {
     Write-Host "  Не найден в CurrentUser\My — пропускаем." -ForegroundColor Gray
 }
-$storeMy.Close()
 
 # ── 4. Удаляем папку с данными приложения ────────────────────────────────
 Write-Host "[4/5] Удаление данных приложения..." -ForegroundColor Cyan
@@ -114,4 +117,9 @@ if ($removed -eq 0) {
     Write-Host "  Записей реестра не найдено — пропускаем." -ForegroundColor Gray
 }
 
-Write-Host "`n=== Готово! PomodoroTimer полностью удалён из системы. ===`n" -ForegroundColor Green
+    Write-Host "`n=== Готово! PomodoroTimer полностью удалён из системы. ===`n" -ForegroundColor Green
+} catch {
+    Write-Host "`n[ОШИБКА] $_`n" -ForegroundColor Red
+} finally {
+    Read-Host "Нажмите Enter для закрытия"
+}
