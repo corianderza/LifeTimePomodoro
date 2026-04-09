@@ -6,6 +6,16 @@ AppxStaging/
 *.exe
 *.pdb
 
+# MSIX Packaging
+PomodoroTimer.Package/AppPackages/
+PomodoroTimer.Package/BundleArtifacts/
+*.msix
+*.msixbundle
+*.msixupload
+*.appx
+*.appxbundle
+*.appxupload
+
 # Visual Studio
 .vs/
 .vscode/
