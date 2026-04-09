@@ -10,6 +10,7 @@
     <RootNamespace>PomodoroTimer</RootNamespace>
     <ApplicationIcon>Assets\ico\32.ico</ApplicationIcon>
     <DefaultLanguage>en-US</DefaultLanguage>
+    <Platforms>x64;x86;ARM64</Platforms>
   </PropertyGroup>
 
   <ItemGroup>
