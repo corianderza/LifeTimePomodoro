@@ -13,6 +13,9 @@ public partial class App : Application
     private static EventWaitHandle? _showWindowEvent;
     private TaskbarIcon? _trayIcon;
     private MainWindow? _mainWindow;
+    private MenuItem? _menuItemShow;
+    private MenuItem? _menuItemSettings;
+    private MenuItem? _menuItemExit;
 
     internal AppSettings Settings { get; private set; } = AppSettings.Load();
 
@@ -54,21 +57,23 @@ public partial class App : Application
             _trayIcon.Icon = new System.Drawing.Icon(iconStream);
         _trayIcon.TrayMouseDoubleClick += (_, _) => ShowMainWindow();
 
+        Localizer.Apply(Settings.Language);
+
         var menu = new ContextMenu();
 
-        var showItem = new MenuItem { Header = "Показать" };
-        showItem.Click += (_, _) => ShowMainWindow();
-        menu.Items.Add(showItem);
+        _menuItemShow = new MenuItem { Header = Localizer.GetString("TrayShow") };
+        _menuItemShow.Click += (_, _) => ShowMainWindow();
+        menu.Items.Add(_menuItemShow);
 
-        var settingsItem = new MenuItem { Header = "Настройки" };
-        settingsItem.Click += (_, _) => ShowSettings();
-        menu.Items.Add(settingsItem);
+        _menuItemSettings = new MenuItem { Header = Localizer.GetString("TraySettings") };
+        _menuItemSettings.Click += (_, _) => ShowSettings();
+        menu.Items.Add(_menuItemSettings);
 
         menu.Items.Add(new Separator());
 
-        var exitItem = new MenuItem { Header = "Выход" };
-        exitItem.Click += (_, _) => { _trayIcon.Dispose(); Shutdown(); };
-        menu.Items.Add(exitItem);
+        _menuItemExit = new MenuItem { Header = Localizer.GetString("TrayExit") };
+        _menuItemExit.Click += (_, _) => { _trayIcon.Dispose(); Shutdown(); };
+        menu.Items.Add(_menuItemExit);
 
         _trayIcon.ContextMenu = menu;
 
@@ -129,7 +134,16 @@ public partial class App : Application
             Settings.Save();
             ApplyAutostart(Settings.StartWithWindows);
             _mainWindow?.ApplyAlwaysOnTop(Settings.AlwaysOnTop);
+            Localizer.Apply(Settings.Language);
+            UpdateTrayLocalization();
         }
+    }
+
+    private void UpdateTrayLocalization()
+    {
+        if (_menuItemShow     != null) _menuItemShow.Header     = Localizer.GetString("TrayShow");
+        if (_menuItemSettings != null) _menuItemSettings.Header = Localizer.GetString("TraySettings");
+        if (_menuItemExit     != null) _menuItemExit.Header     = Localizer.GetString("TrayExit");
     }
 
     internal static async void ApplyAutostart(bool enable)

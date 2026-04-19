@@ -1,0 +1,42 @@
+<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:sys="clr-namespace:System;assembly=mscorlib">
+
+    <!-- Tooltips -->
+    <sys:String x:Key="TipCompact">Modo compacto</sys:String>
+    <sys:String x:Key="TipFull">Modo completo</sys:String>
+    <sys:String x:Key="TipSettings">Configuración</sys:String>
+    <sys:String x:Key="TipMinimize">Minimizar</sys:String>
+    <sys:String x:Key="TipHide">Ocultar en bandeja</sys:String>
+
+    <!-- Main window labels -->
+    <sys:String x:Key="LblMinutes">minutos</sys:String>
+    <sys:String x:Key="LblPresets">Plantillas:</sys:String>
+    <sys:String x:Key="MinSuffix"> min</sys:String>
+
+    <!-- Buttons -->
+    <sys:String x:Key="BtnStartLabel">INICIO</sys:String>
+    <sys:String x:Key="BtnStopLabel">PAUSA</sys:String>
+    <sys:String x:Key="BtnResetLabel">REINICIO</sys:String>
+
+    <!-- Settings window -->
+    <sys:String x:Key="SettingsTitle">Configuración — Pomodoro Timer</sys:String>
+    <sys:String x:Key="SettingsSoundSection">SONIDO DE FINALIZACIÓN</sys:String>
+    <sys:String x:Key="SettingsBtnTest">▶  Prueba</sys:String>
+    <sys:String x:Key="SettingsChkAutostart">Iniciar con Windows</sys:String>
+    <sys:String x:Key="SettingsChkAlwaysOnTop">Siempre encima (opacidad 70%)</sys:String>
+    <sys:String x:Key="SettingsChkSilentMode">Modo silencioso (parpadeo en vez de sonido)</sys:String>
+    <sys:String x:Key="SettingsLangSection">IDIOMA DE INTERFAZ</sys:String>
+    <sys:String x:Key="BtnOkLabel">OK</sys:String>
+    <sys:String x:Key="BtnCancelLabel">Cancelar</sys:String>
+
+    <!-- Tray menu -->
+    <sys:String x:Key="TrayShow">Mostrar</sys:String>
+    <sys:String x:Key="TraySettings">Configuración</sys:String>
+    <sys:String x:Key="TrayExit">Salir</sys:String>
+
+    <!-- Hints / dynamic text -->
+    <sys:String x:Key="HintDefault">Se utilizará el sonido del sistema de Windows.</sys:String>
+    <sys:String x:Key="SoundDefault">(Sistema — Exclamation)</sys:String>
+
+</ResourceDictionary>

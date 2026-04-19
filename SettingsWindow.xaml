@@ -1,8 +1,8 @@
 <Window x:Class="PomodoroTimer.SettingsWindow"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-        Title="Настройки — Pomodoro Timer"
-        Height="340" Width="420"
+        Title="{DynamicResource SettingsTitle}"
+        Height="430" Width="420"
         ResizeMode="NoResize"
         WindowStartupLocation="CenterOwner"
     Background="#2A1742"
@@ -76,6 +76,10 @@
             <RowDefinition Height="10"/>
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="Auto"/>
+            <RowDefinition Height="16"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="8"/>
+            <RowDefinition Height="Auto"/>
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="*"/>
             <RowDefinition Height="Auto"/>
@@ -83,7 +87,7 @@
 
         <!-- Section header -->
         <TextBlock Grid.Row="0"
-                   Text="ЗВУКОВОЙ СИГНАЛ ПО ЗАВЕРШЕНИИ"
+                   Text="{DynamicResource SettingsSoundSection}"
                    Foreground="#FFE6D4F8"
                    FontSize="11" FontWeight="Bold"/>
 
@@ -102,17 +106,25 @@
 
             <Button Grid.Column="2"
                     Style="{StaticResource DlgButton}"
-                    Content="▶  Тест"
+                    Content="{DynamicResource SettingsBtnTest}"
                     MinWidth="80"
                     Click="BtnTest_Click"/>
         </Grid>
+
+        <!-- Hint text -->
+        <TextBlock Grid.Row="12"
+                   x:Name="TbHint"
+                   Foreground="#FFD1BCD8"
+                   FontSize="10"
+                   Margin="0,6,0,6"
+                   TextWrapping="Wrap"/>
 
         <!-- Autostart checkbox -->
         <CheckBox x:Name="ChkAutostart"
                   Grid.Row="4"
                   Foreground="#FFE6D4F8"
                   FontSize="12"
-                  Content="Запускать при старте Windows"
+                  Content="{DynamicResource SettingsChkAutostart}"
                   Margin="0,0,0,0"/>
 
         <!-- Always on Top checkbox -->
@@ -120,7 +132,7 @@
                   Grid.Row="6"
                   Foreground="#FFE6D4F8"
                   FontSize="12"
-                  Content="Поверх всех окон (прозрачность 70%)"
+                  Content="{DynamicResource SettingsChkAlwaysOnTop}"
                   Margin="0,0,0,0"/>
 
         <!-- Silent mode checkbox -->
@@ -128,25 +140,31 @@
                   Grid.Row="7"
                   Foreground="#FFE6D4F8"
                   FontSize="12"
-                  Content="Тихий режим (мигание вместо звука)"
+                  Content="{DynamicResource SettingsChkSilentMode}"
                   Margin="0,6,0,0"/>
 
-        <!-- Hint text -->
-        <TextBlock Grid.Row="8"
-                   x:Name="TbHint"
-                   Foreground="#FFD1BCD8"
-                   FontSize="10"
-                   Margin="0,6,0,6"
-                   TextWrapping="Wrap"/>
+        <!-- Language section header -->
+        <StackPanel Grid.Row="9" Orientation="Horizontal">
+            <TextBlock Text="🌐  A-文  "
+                       Foreground="#FFE6D4F8"
+                       FontSize="11" FontWeight="Bold"/>
+            <TextBlock Text="{DynamicResource SettingsLangSection}"
+                       Foreground="#FFE6D4F8"
+                       FontSize="11" FontWeight="Bold"/>
+        </StackPanel>
+
+        <!-- Language selector -->
+        <ComboBox x:Name="CbLanguage"
+                  Grid.Row="11"/>
 
         <!-- OK / Cancel -->
-        <StackPanel Grid.Row="10" Orientation="Horizontal" HorizontalAlignment="Right">
+        <StackPanel Grid.Row="14" Orientation="Horizontal" HorizontalAlignment="Right">
             <Button Style="{StaticResource DlgButton}"
-                    Content="Отмена"
+                    Content="{DynamicResource BtnCancelLabel}"
                     Margin="0,0,10,0"
                     Click="BtnCancel_Click"/>
             <Button Style="{StaticResource DlgButton}"
-                    Content="ОК"
+                    Content="{DynamicResource BtnOkLabel}"
                     Foreground="#FFD3FFAE"
                     Click="BtnOk_Click"/>
         </StackPanel>

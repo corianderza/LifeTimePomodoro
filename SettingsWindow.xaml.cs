@@ -13,8 +13,9 @@ public partial class SettingsWindow : Window
     private readonly AppSettings _working;
     private SoundPlayer? _testPlayer;
 
-    // ─── Sound file entry for ComboBox ────────────────────────────
+    // ─── Sound / language entries for ComboBoxes ─────────────────
     private sealed record SoundEntry(string Name, string Path);
+    private sealed record LanguageEntry(string Code, string DisplayName);
 
     // ─── Constructor ──────────────────────────────────────────────
     public SettingsWindow(AppSettings current)
@@ -26,10 +27,12 @@ public partial class SettingsWindow : Window
             SelectedSoundPath = current.SelectedSoundPath,
             StartWithWindows  = current.StartWithWindows,
             AlwaysOnTop       = current.AlwaysOnTop,
-            SilentMode        = current.SilentMode
+            SilentMode        = current.SilentMode,
+            Language          = current.Language
         };
 
         LoadSounds();
+        LoadLanguages();
         ChkAutostart.IsChecked    = _working.StartWithWindows;
         ChkAlwaysOnTop.IsChecked  = _working.AlwaysOnTop;
         ChkSilentMode.IsChecked   = _working.SilentMode;
@@ -40,7 +43,7 @@ public partial class SettingsWindow : Window
     {
         var entries = new List<SoundEntry>
         {
-            new("(Системный — Exclamation)", "")   // default system sound
+            new(Localizer.GetString("SoundDefault"), "")   // default system sound
         };
 
         var mediaDir = Path.Combine(
@@ -68,7 +71,7 @@ public partial class SettingsWindow : Window
         {
             _working.SelectedSoundPath = entry.Path;
             TbHint.Text = string.IsNullOrEmpty(entry.Path)
-                ? "Будет использован стандартный системный звук Windows."
+                ? Localizer.GetString("HintDefault")
                 : entry.Path;
         }
     }
@@ -99,8 +102,24 @@ public partial class SettingsWindow : Window
         _working.StartWithWindows = ChkAutostart.IsChecked == true;
         _working.AlwaysOnTop      = ChkAlwaysOnTop.IsChecked == true;
         _working.SilentMode       = ChkSilentMode.IsChecked == true;
+        _working.Language         = ((LanguageEntry)CbLanguage.SelectedItem).Code;
         Result = _working;
         DialogResult = true;
+    }
+
+    // ─── Load language options ─────────────────────────────────────
+    private void LoadLanguages()
+    {
+        var entries = new List<LanguageEntry>
+        {
+            new("ru",      "Русский"),
+            new("en",      "English"),
+            new("es",      "Español"),
+            new("zh-Hans", "中文 (简体)"),
+        };
+        CbLanguage.ItemsSource       = entries;
+        CbLanguage.DisplayMemberPath = "DisplayName";
+        CbLanguage.SelectedItem      = entries.FirstOrDefault(e => e.Code == _working.Language) ?? entries[0];
     }
 
     private void BtnCancel_Click(object sender, RoutedEventArgs e)

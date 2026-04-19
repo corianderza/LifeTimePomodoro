@@ -162,24 +162,24 @@
                     <Button x:Name="BtnCompact"
                             Style="{StaticResource WindowChromeButton}"
                             Content="⊟"
-                            ToolTip="Компактный режим"
+                            ToolTip="{DynamicResource TipCompact}"
                             Click="BtnCompact_Click"/>
                     <Button x:Name="BtnSettings"
                             Style="{StaticResource WindowChromeButton}"
                             Content="⚙"
                             FontSize="12"
-                            ToolTip="Настройки"
+                            ToolTip="{DynamicResource TipSettings}"
                             Click="BtnSettings_Click"/>
                     <Button x:Name="BtnMinimize"
                             Style="{StaticResource WindowChromeButton}"
                             Content="_"
-                            ToolTip="Свернуть"
+                            ToolTip="{DynamicResource TipMinimize}"
                             Click="BtnMinimize_Click"/>
                     <Button x:Name="BtnHide"
                             Style="{StaticResource WindowChromeButton}"
                             Content="✕"
                             Margin="0"
-                            ToolTip="Скрыть в трей"
+                            ToolTip="{DynamicResource TipHide}"
                             Click="BtnHide_Click"/>
                 </StackPanel>
             </Grid>
@@ -221,7 +221,7 @@
                                       Style="{StaticResource ArrowButton}"
                                       Content="▼"
                                       Click="BtnMinDown_Click"/>
-                        <TextBlock Text="минуты"
+                        <TextBlock Text="{DynamicResource LblMinutes}"
                                    Foreground="#FFE6D4F8"
                                    FontSize="9"
                                    VerticalAlignment="Center"
@@ -235,17 +235,32 @@
             </Border>
 
             <StackPanel Grid.Row="3" Orientation="Horizontal" HorizontalAlignment="Center">
-                <TextBlock Text="Шаблоны:"
+                <TextBlock Text="{DynamicResource LblPresets}"
                            Foreground="#FFE6D4F8"
                            FontSize="9"
                            VerticalAlignment="Center"
                            Margin="0,0,8,0"/>
-                <Button x:Name="BtnPreset15" Content="15 мин" Style="{StaticResource PresetButton}"
-                        Click="BtnPreset_Click" Tag="15" Margin="2,0"/>
-                <Button x:Name="BtnPreset30" Content="30 мин" Style="{StaticResource PresetButton}"
-                        Click="BtnPreset_Click" Tag="30" Margin="2,0"/>
-                <Button x:Name="BtnPreset45" Content="45 мин" Style="{StaticResource PresetButton}"
-                        Click="BtnPreset_Click" Tag="45" Margin="2,0"/>
+                <Button x:Name="BtnPreset15" Style="{StaticResource PresetButton}"
+                        Click="BtnPreset_Click" Tag="15" Margin="2,0">
+                    <StackPanel Orientation="Horizontal">
+                        <TextBlock Text="15"/>
+                        <TextBlock Text="{DynamicResource MinSuffix}"/>
+                    </StackPanel>
+                </Button>
+                <Button x:Name="BtnPreset30" Style="{StaticResource PresetButton}"
+                        Click="BtnPreset_Click" Tag="30" Margin="2,0">
+                    <StackPanel Orientation="Horizontal">
+                        <TextBlock Text="30"/>
+                        <TextBlock Text="{DynamicResource MinSuffix}"/>
+                    </StackPanel>
+                </Button>
+                <Button x:Name="BtnPreset45" Style="{StaticResource PresetButton}"
+                        Click="BtnPreset_Click" Tag="45" Margin="2,0">
+                    <StackPanel Orientation="Horizontal">
+                        <TextBlock Text="45"/>
+                        <TextBlock Text="{DynamicResource MinSuffix}"/>
+                    </StackPanel>
+                </Button>
             </StackPanel>
 
             <Grid Grid.Row="5">
@@ -263,7 +278,7 @@
                         Click="BtnStart_Click">
                     <StackPanel Orientation="Horizontal">
                         <TextBlock Text="▶" Margin="0,0,4,0"/>
-                        <TextBlock Text="СТАРТ"/>
+                        <TextBlock Text="{DynamicResource BtnStartLabel}"/>
                     </StackPanel>
                 </Button>
 
@@ -274,7 +289,7 @@
                         Click="BtnStop_Click">
                     <StackPanel Orientation="Horizontal">
                         <TextBlock Text="⏸" Margin="0,0,4,0"/>
-                        <TextBlock Text="СТОП"/>
+                        <TextBlock Text="{DynamicResource BtnStopLabel}"/>
                     </StackPanel>
                 </Button>
 
@@ -284,7 +299,7 @@
                         Click="BtnReset_Click">
                     <StackPanel Orientation="Horizontal">
                         <TextBlock Text="↺" Margin="0,0,4,0"/>
-                        <TextBlock Text="СБРОС"/>
+                        <TextBlock Text="{DynamicResource BtnResetLabel}"/>
                     </StackPanel>
                 </Button>
             </Grid>
@@ -311,16 +326,16 @@
                             VerticalAlignment="Top" Margin="0,-18,-5,0">
                     <Button Style="{StaticResource CompactChromeButton}"
                             Content="⊞"
-                            ToolTip="Полный режим"
+                            ToolTip="{DynamicResource TipFull}"
                             Click="BtnCompact_Click"/>
                     <Button Style="{StaticResource CompactChromeButton}"
                             Content="_"
-                            ToolTip="Свернуть"
+                            ToolTip="{DynamicResource TipMinimize}"
                             Click="BtnMinimize_Click"/>
                     <Button Style="{StaticResource CompactChromeButton}"
                             Margin="0"
                             Content="✕"
-                            ToolTip="Скрыть в трей"
+                            ToolTip="{DynamicResource TipHide}"
                             Click="BtnHide_Click"/>
                 </StackPanel>
             </Grid>
@@ -367,7 +382,7 @@
                         Click="BtnStart_Click">
                     <StackPanel Orientation="Horizontal">
                         <TextBlock Text="&#x25B6;" Margin="0,0,2,0"/>
-                        <TextBlock Text="СТАРТ"/>
+                        <TextBlock Text="{DynamicResource BtnStartLabel}"/>
                     </StackPanel>
                 </Button>
 
@@ -378,7 +393,7 @@
                         Click="BtnStop_Click">
                     <StackPanel Orientation="Horizontal">
                         <TextBlock Text="&#x23F8;" Margin="0,0,2,0"/>
-                        <TextBlock Text="СТОП"/>
+                        <TextBlock Text="{DynamicResource BtnStopLabel}"/>
                     </StackPanel>
                 </Button>
             </Grid>

@@ -1,0 +1,42 @@
+<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:sys="clr-namespace:System;assembly=mscorlib">
+
+    <!-- Tooltips -->
+    <sys:String x:Key="TipCompact">Compact mode</sys:String>
+    <sys:String x:Key="TipFull">Full mode</sys:String>
+    <sys:String x:Key="TipSettings">Settings</sys:String>
+    <sys:String x:Key="TipMinimize">Minimize</sys:String>
+    <sys:String x:Key="TipHide">Hide to tray</sys:String>
+
+    <!-- Main window labels -->
+    <sys:String x:Key="LblMinutes">minutes</sys:String>
+    <sys:String x:Key="LblPresets">Presets:</sys:String>
+    <sys:String x:Key="MinSuffix"> min</sys:String>
+
+    <!-- Buttons -->
+    <sys:String x:Key="BtnStartLabel">START</sys:String>
+    <sys:String x:Key="BtnStopLabel">STOP</sys:String>
+    <sys:String x:Key="BtnResetLabel">RESET</sys:String>
+
+    <!-- Settings window -->
+    <sys:String x:Key="SettingsTitle">Settings — Pomodoro Timer</sys:String>
+    <sys:String x:Key="SettingsSoundSection">COMPLETION SOUND</sys:String>
+    <sys:String x:Key="SettingsBtnTest">▶  Test</sys:String>
+    <sys:String x:Key="SettingsChkAutostart">Launch at Windows startup</sys:String>
+    <sys:String x:Key="SettingsChkAlwaysOnTop">Always on top (70% opacity)</sys:String>
+    <sys:String x:Key="SettingsChkSilentMode">Silent mode (flash instead of sound)</sys:String>
+    <sys:String x:Key="SettingsLangSection">INTERFACE LANGUAGE</sys:String>
+    <sys:String x:Key="BtnOkLabel">OK</sys:String>
+    <sys:String x:Key="BtnCancelLabel">Cancel</sys:String>
+
+    <!-- Tray menu -->
+    <sys:String x:Key="TrayShow">Show</sys:String>
+    <sys:String x:Key="TraySettings">Settings</sys:String>
+    <sys:String x:Key="TrayExit">Exit</sys:String>
+
+    <!-- Hints / dynamic text -->
+    <sys:String x:Key="HintDefault">The default Windows system sound will be used.</sys:String>
+    <sys:String x:Key="SoundDefault">(System — Exclamation)</sys:String>
+
+</ResourceDictionary>

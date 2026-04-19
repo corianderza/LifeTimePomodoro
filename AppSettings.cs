@@ -10,6 +10,7 @@ namespace PomodoroTimer
         public bool StartWithWindows { get; set; } = true;
         public bool AlwaysOnTop { get; set; } = false;
         public bool SilentMode { get; set; } = false;
+        public string Language { get; set; } = "ru";
 
         private static readonly string SettingsDir =
             Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData), "PomodoroTimer");
