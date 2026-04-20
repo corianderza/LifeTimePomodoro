@@ -10,7 +10,7 @@ namespace PomodoroTimer
         public bool StartWithWindows { get; set; } = true;
         public bool AlwaysOnTop { get; set; } = false;
         public bool SilentMode { get; set; } = false;
-        public string Language { get; set; } = "en";
+        public string Language { get; set; } = "";
 
         private static readonly string SettingsDir =
             Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData), "PomodoroTimer");
@@ -20,16 +20,29 @@ namespace PomodoroTimer
 
         public static AppSettings Load()
         {
+            AppSettings settings;
             try
             {
                 if (File.Exists(SettingsFile))
                 {
                     var json = File.ReadAllText(SettingsFile);
-                    return JsonSerializer.Deserialize<AppSettings>(json) ?? new AppSettings();
+                    settings = JsonSerializer.Deserialize<AppSettings>(json) ?? new AppSettings();
+                }
+                else
+                {
+                    settings = new AppSettings();
                 }
             }
-            catch { /* ignore */ }
-            return new AppSettings();
+            catch { settings = new AppSettings(); }
+
+            // Empty language means it was never saved — detect from system locale and persist
+            if (string.IsNullOrEmpty(settings.Language))
+            {
+                settings.Language = Localizer.DetectSystemLanguage();
+                settings.Save();
+            }
+
+            return settings;
         }
 
         public void Save()

@@ -69,6 +69,12 @@ if ($appDataDirs) {
     Write-Host "  Папка данных не найдена — пропускаем." -ForegroundColor Gray
 }
 
+$appDataSettings = Join-Path $env:APPDATA "PomodoroTimer"
+if (Test-Path $appDataSettings) {
+    Remove-Item $appDataSettings -Recurse -Force
+    Write-Host "  Settings folder removed." -ForegroundColor Green
+}
+
 # ── 5. Чистим реестр ─────────────────────────────────────────────────────
 Write-Host "[5/5] Очистка записей реестра..." -ForegroundColor Cyan
 $regPaths = @(
