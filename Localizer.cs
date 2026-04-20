@@ -18,13 +18,16 @@ internal static class Localizer
     public static void Apply(string langCode)
     {
         var merged  = Application.Current.Resources.MergedDictionaries;
-        var baseUri = $"{DictUriBase}{DefaultLanguage}{DictUriSuffix}";
 
         // Remove ONLY the override dict — keep the base (fallback) dict intact.
         // Any key missing from a translation will still fall through to English.
+        // NOTE: the base dict loaded from App.xaml has a relative OriginalString
+        //       ("/Localization/Strings.en.xaml"), while baseUri is pack-absolute,
+        //       so we compare by suffix instead of full URI equality.
+        var baseSuffix = $"Strings.{DefaultLanguage}{DictUriSuffix}";
         var existing = merged.FirstOrDefault(d =>
             d.Source?.OriginalString.Contains("/Localization/Strings.") == true &&
-            !d.Source.OriginalString.Equals(baseUri, StringComparison.OrdinalIgnoreCase));
+            !d.Source.OriginalString.EndsWith(baseSuffix, StringComparison.OrdinalIgnoreCase));
         if (existing != null)
             merged.Remove(existing);
 
