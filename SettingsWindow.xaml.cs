@@ -116,6 +116,7 @@ public partial class SettingsWindow : Window
             new("en",      "English"),
             new("es",      "Español"),
             new("zh-Hans", "中文 (简体)"),
+            new("zh-Hant", "中文 (繁體)"),
         };
         CbLanguage.ItemsSource       = entries;
         CbLanguage.DisplayMemberPath = "DisplayName";

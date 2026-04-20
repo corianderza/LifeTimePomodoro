@@ -3,6 +3,12 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:tb="http://www.hardcodet.net/taskbar">
     <Application.Resources>
-        <tb:TaskbarIcon x:Key="TrayIcon" ToolTipText="Pomodoro Timer" IconSource="/Assets/ico/16.ico"/>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <!-- Base (fallback) dictionary — always loaded first -->
+                <ResourceDictionary Source="/Localization/Strings.en.xaml"/>
+            </ResourceDictionary.MergedDictionaries>
+            <tb:TaskbarIcon x:Key="TrayIcon" ToolTipText="Pomodoro Timer" IconSource="/Assets/ico/16.ico"/>
+        </ResourceDictionary>
     </Application.Resources>
 </Application>
