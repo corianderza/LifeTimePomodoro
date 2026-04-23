@@ -81,6 +81,8 @@
             <RowDefinition Height="8"/>
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="Auto"/>
+            <RowDefinition Height="8"/>
+            <RowDefinition Height="Auto"/>
             <RowDefinition Height="*"/>
             <RowDefinition Height="Auto"/>
         </Grid.RowDefinitions>
@@ -157,8 +159,56 @@
         <ComboBox x:Name="CbLanguage"
                   Grid.Row="11"/>
 
+        <!-- Debug info panel (visible only in Debug builds, shown via code-behind) -->
+        <Border x:Name="DebugInfoPanel"
+                Grid.Row="14"
+                Visibility="Collapsed"
+                Background="#CC1A0E00"
+                BorderBrush="#FFCC7700"
+                BorderThickness="1"
+                CornerRadius="6"
+                Padding="8,6"
+                Margin="0,0,0,0">
+            <StackPanel>
+                <TextBlock Text="🛠 DEBUG"
+                           Foreground="#FFCC7700"
+                           FontSize="10" FontWeight="Bold"
+                           Margin="0,0,0,4"/>
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="Auto"/>
+                        <ColumnDefinition Width="6"/>
+                        <ColumnDefinition Width="*"/>
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="4"/>
+                        <RowDefinition Height="Auto"/>
+                    </Grid.RowDefinitions>
+                    <TextBlock Grid.Row="0" Grid.Column="0"
+                               Text="App path:"
+                               Foreground="#FFAA8800"
+                               FontSize="10" FontWeight="Bold"/>
+                    <TextBlock Grid.Row="0" Grid.Column="2"
+                               x:Name="TbDebugAppPath"
+                               Foreground="#FFFFD27A"
+                               FontSize="10"
+                               TextWrapping="Wrap"/>
+                    <TextBlock Grid.Row="2" Grid.Column="0"
+                               Text="Settings:"
+                               Foreground="#FFAA8800"
+                               FontSize="10" FontWeight="Bold"/>
+                    <TextBlock Grid.Row="2" Grid.Column="2"
+                               x:Name="TbDebugSettingsPath"
+                               Foreground="#FFFFD27A"
+                               FontSize="10"
+                               TextWrapping="Wrap"/>
+                </Grid>
+            </StackPanel>
+        </Border>
+
         <!-- OK / Cancel -->
-        <StackPanel Grid.Row="14" Orientation="Horizontal" HorizontalAlignment="Right">
+        <StackPanel Grid.Row="16" Orientation="Horizontal" HorizontalAlignment="Right">
             <Button Style="{StaticResource DlgButton}"
                     Content="{DynamicResource BtnCancelLabel}"
                     Margin="0,0,10,0"

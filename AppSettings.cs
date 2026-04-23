@@ -18,6 +18,8 @@ namespace PomodoroTimer
         private static readonly string SettingsFile =
             Path.Combine(SettingsDir, "settings.json");
 
+        public static string SettingsFilePath => SettingsFile;
+
         public static AppSettings Load()
         {
             AppSettings settings;

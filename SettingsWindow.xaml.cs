@@ -36,6 +36,13 @@ public partial class SettingsWindow : Window
         ChkAutostart.IsChecked    = _working.StartWithWindows;
         ChkAlwaysOnTop.IsChecked  = _working.AlwaysOnTop;
         ChkSilentMode.IsChecked   = _working.SilentMode;
+
+#if DEBUG
+        DebugInfoPanel.Visibility  = System.Windows.Visibility.Visible;
+        TbDebugAppPath.Text        = AppDomain.CurrentDomain.BaseDirectory;
+        TbDebugSettingsPath.Text   = AppSettings.SettingsFilePath;
+        SizeToContent              = System.Windows.SizeToContent.Height;
+#endif
     }
 
     // ─── Load .wav files from Windows Media folder ────────────────
