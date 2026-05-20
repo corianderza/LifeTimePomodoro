@@ -1,0 +1,670 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tomatodo - Intuitive & Simple Pomodoro Timer for Windows</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- FontAwesome для иконок -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        /* Использование системного шрифта Segoe UI, как на скриншотах */
+        body {
+            font-family: 'Segoe UI', -apple-system, BlinkMacSystemFont, Roboto, Helvetica, Arial, sans-serif;
+            background-color: #0b0f19;
+            color: #ffffff;
+            overflow-x: hidden;
+        }
+
+        /* Симуляция красивых дефолтных обоев Windows с мягким градиентом */
+        .hero-bg {
+            background: radial-gradient(circle at 50% 120%, rgba(203, 113, 113, 0.15) 0%, rgba(13, 18, 30, 0) 60%),
+                        radial-gradient(circle at 10% 20%, rgba(45, 27, 105, 0.4) 0%, rgba(11, 15, 25, 0) 50%),
+                        radial-gradient(circle at 90% 10%, rgba(147, 51, 234, 0.15) 0%, rgba(11, 15, 25, 0) 40%);
+            background-size: cover;
+        }
+
+        /* Анимация пульсации для таймера в режиме работы */
+        @keyframes pulse-gentle {
+            0%, 100% { transform: scale(1) rotate(0deg); }
+            50% { transform: scale(1.02) rotate(0.5deg); }
+        }
+        .timer-active {
+            animation: pulse-gentle 4s ease-in-out infinite;
+        }
+
+        /* Кастомный скроллбар */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #0d111d;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #4c1d95;
+            border-radius: 4px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #6d28d9;
+        }
+    </style>
+</head>
+<body class="hero-bg min-h-screen flex flex-col justify-between">
+
+    <!-- Навигация -->
+    <nav class="border-b border-white/10 backdrop-blur-md bg-black/20 sticky top-0 z-50">
+        <div class="max-w-6xl mx-auto px-6 py-4 flex justify-between items-center">
+            <!-- Логотип -->
+            <div class="flex items-center gap-3">
+                <span class="text-3xl">🍅</span>
+                <span class="text-xl font-bold tracking-tight bg-gradient-to-r from-red-400 to-purple-400 bg-clip-text text-transparent">Tomatodo</span>
+            </div>
+            
+            <!-- Меню -->
+            <div class="hidden md:flex items-center gap-8 text-sm text-gray-300 font-medium">
+                <a href="#features" class="hover:text-white transition-colors">Функции</a>
+                <a href="#interactive" class="hover:text-white transition-colors">Попробовать онлайн</a>
+                <a href="#ai-companion" class="hover:text-white transition-colors">AI Помощник</a>
+                <a href="#screenshots" class="hover:text-white transition-colors">Скриншоты</a>
+            </div>
+
+            <!-- Кнопка действия -->
+            <div>
+                <a href="#download" class="bg-purple-600 hover:bg-purple-500 text-white px-5 py-2 rounded-full text-sm font-semibold transition-all shadow-lg shadow-purple-600/20 hover:shadow-purple-500/40">
+                    Установить
+                </a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Главный экран (Hero Section) -->
+    <main class="flex-grow max-w-6xl w-full mx-auto px-6 py-12 md:py-16 flex flex-col items-center">
+        
+        <!-- Заголовок в стиле наших надписей -->
+        <div class="text-center mb-10">
+            <h1 class="text-4xl md:text-6xl font-bold tracking-wide uppercase max-w-4xl leading-tight mb-4">
+                Intuitive & Simple
+            </h1>
+            <p class="text-lg md:text-xl text-gray-400 max-w-2xl mx-auto">
+                Минималистичный Pomodoro-таймер для Windows, теперь усиленный искусственным интеллектом для максимальной концентрации.
+            </p>
+        </div>
+
+        <!-- ДВУХКОЛОНОЧНЫЙ ИНТЕРАКТИВНЫЙ БЛОК (Таймер + ИИ) -->
+        <div id="interactive" class="w-full grid lg:grid-cols-12 gap-8 items-start mb-20">
+            
+            <!-- Левая колонка: Таймер -->
+            <div class="lg:col-span-5 flex flex-col items-center">
+                
+                <!-- Контроллеры эффектов для демонстрации фич -->
+                <div class="flex justify-center gap-2 mb-6 w-full max-w-sm">
+                    <button id="btn-normal-mode" class="flex-1 py-1.5 text-[11px] rounded-lg border border-purple-500 bg-purple-600 text-white hover:bg-purple-500 transition-all font-bold shadow-lg shadow-purple-600/40">
+                        Default
+                    </button>
+                    <button id="btn-minimize-mode" class="flex-1 py-1.5 text-[11px] rounded-lg border border-purple-500/20 bg-purple-950/40 text-purple-200 hover:bg-purple-600/25 hover:text-white hover:border-purple-500/40 backdrop-blur-sm transition-all font-semibold shadow-inner">
+                        <i class="fa-solid fa-compress mr-1"></i> Minimize
+                    </button>
+                    <button id="btn-transparent-mode" class="flex-1 py-1.5 text-[11px] rounded-lg border border-purple-500/20 bg-purple-950/40 text-purple-200 hover:bg-purple-600/25 hover:text-white hover:border-purple-500/40 backdrop-blur-sm transition-all font-semibold shadow-inner">
+                        <i class="fa-solid fa-eye-slash mr-1"></i> Transparent
+                    </button>
+                </div>
+
+                <!-- Тело таймера "Помидорка" -->
+                <div id="pomodoro-app" class="relative w-72 h-72 rounded-full bg-[#3d183f] border-4 border-[#250f26] shadow-2xl flex flex-col items-center justify-center transition-all duration-500 z-10">
+                    
+                    <!-- Хвостик помидорки (SVG) -->
+                    <div class="absolute -top-6 left-1/2 -translate-x-1/2 transition-transform duration-500" id="pomodoro-stem">
+                        <svg width="60" height="40" viewBox="0 0 60 40" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M30 5C30 5 28 20 15 22C15 22 28 23 30 35C30 35 32 23 45 22C45 22 32 20 30 5Z" fill="#587f2e" />
+                            <path d="M30 15C30 15 25 3 20 5C20 5 26 10 30 15Z" fill="#466524" />
+                            <path d="M30 15C30 15 35 3 40 5C40 5 34 10 30 15Z" fill="#466524" />
+                        </svg>
+                    </div>
+
+                    <!-- Системные кнопки окна сверху (аккуратный дизайн Windows) -->
+                    <div id="window-controls" class="absolute top-4 flex gap-1.5 justify-center opacity-80">
+                        <span class="w-2.5 h-2.5 rounded-full bg-white/10"></span>
+                        <span class="w-2.5 h-2.5 rounded-full bg-white/10"></span>
+                        <span class="w-2.5 h-2.5 rounded-full bg-white/10"></span>
+                    </div>
+
+                    <!-- Дисплей времени -->
+                    <div class="text-center mt-4">
+                        <div id="timer-display" class="text-5xl font-bold tracking-widest text-[#ffebeb] select-none" style="font-family: monospace;">
+                            25:00
+                        </div>
+                        <!-- Мелкая подпись режима -->
+                        <div id="timer-status" class="text-xs uppercase tracking-widest text-red-300 mt-1 font-semibold select-none">
+                            Сессия
+                        </div>
+                    </div>
+
+                    <!-- Пресеты минут -->
+                    <div id="timer-presets" class="flex gap-2 mt-4 transition-all duration-300">
+                        <button onclick="setTimer(15)" class="px-2 py-0.5 text-[10px] rounded bg-white/5 border border-white/10 hover:bg-white/10 text-white/80 transition-colors">15m</button>
+                        <button onclick="setTimer(25)" class="px-2 py-0.5 text-[10px] rounded bg-white/10 border border-white/20 hover:bg-white/20 text-white transition-colors font-bold">25m</button>
+                        <button onclick="setTimer(45)" class="px-2 py-0.5 text-[10px] rounded bg-white/5 border border-white/10 hover:bg-white/10 text-white/80 transition-colors">45m</button>
+                    </div>
+
+                    <!-- Кнопки управления -->
+                    <div class="flex gap-3 mt-5 z-20 transition-all duration-350">
+                        <button id="btn-toggle" class="px-4 py-1.5 rounded-md bg-green-600 hover:bg-green-500 text-white text-xs font-semibold uppercase tracking-wider shadow-md transition-all duration-350">
+                            <i class="fa-solid fa-play mr-1"></i> Start
+                        </button>
+                        <button id="btn-reset" class="px-4 py-1.5 rounded-md bg-white/5 hover:bg-white/10 border border-white/10 text-white text-xs font-semibold uppercase tracking-wider transition-all duration-350">
+                            Reset
+                        </button>
+                    </div>
+
+                    <!-- Блик на помидорке -->
+                    <div class="absolute top-8 left-8 w-12 h-6 rounded-full bg-white/10 rotate-[-30deg] pointer-events-none"></div>
+                </div>
+
+                <!-- Теневой декоративный элемент под таймером -->
+                <div id="timer-shadow" class="w-56 h-4 bg-black/40 rounded-full filter blur-md mx-auto mt-4 transition-all duration-500"></div>
+
+                <!-- Имитация всплывающего Toast-уведомления -->
+                <div id="toast-demo" class="mt-4 bg-gray-900/95 border border-white/10 backdrop-blur-md p-4 rounded-xl shadow-2xl w-72 text-left flex gap-3 transform translate-y-4 opacity-0 pointer-events-none transition-all duration-500 z-30">
+                    <div class="text-2xl text-red-400">🍅</div>
+                    <div>
+                        <h4 class="text-sm font-bold text-white">Время вышло!</h4>
+                        <p class="text-xs text-gray-400 mt-0.5">Отличная работа. Пора сделать заслуженный короткий перерыв (5 мин).</p>
+                    </div>
+                    <button onclick="closeToast()" class="absolute top-2 right-2 text-gray-500 hover:text-white text-xs">
+                        <i class="fa-solid fa-xmark"></i>
+                    </button>
+                </div>
+            </div>
+
+            <!-- Правая колонка: ✨ AI Focus Companion Card -->
+            <div id="ai-companion" class="lg:col-span-7 bg-white/5 border border-white/10 rounded-2xl p-6 backdrop-blur-md relative overflow-hidden flex flex-col h-[420px] shadow-2xl hover:border-white/15 transition-all">
+                
+                <!-- Декоративное свечение ИИ -->
+                <div class="absolute -right-16 -top-16 w-32 h-32 rounded-full bg-purple-600/20 blur-2xl pointer-events-none"></div>
+                
+                <!-- Шапка карточки ИИ -->
+                <div class="flex items-center justify-between border-b border-white/10 pb-4 mb-4">
+                    <div class="flex items-center gap-2.5">
+                        <div class="w-8 h-8 rounded-lg bg-gradient-to-tr from-purple-600 to-pink-500 flex items-center justify-center text-xs text-white">
+                            <i class="fa-solid fa-wand-magic-sparkles"></i>
+                        </div>
+                        <div>
+                            <h3 class="font-bold text-sm tracking-wide text-white flex items-center gap-1.5">
+                                AI Focus Companion
+                            </h3>
+                            <p class="text-[10px] text-gray-400">Powered by Gemini 2.5 Flash</p>
+                        </div>
+                    </div>
+                    
+                    <!-- Тонкая настройка API ключа (Опционально для пользователя) -->
+                    <div class="relative group">
+                        <button class="text-xs text-gray-400 hover:text-white bg-white/5 px-2.5 py-1 rounded-md border border-white/5 flex items-center gap-1">
+                            <i class="fa-solid fa-key text-[10px]"></i> API Key
+                        </button>
+                        <div class="absolute right-0 top-8 bg-gray-950 border border-white/10 rounded-lg p-3 w-64 shadow-2xl hidden group-hover:block hover:block z-50">
+                            <p class="text-[10px] text-gray-400 mb-2">Если хотите использовать собственный API Ключ Gemini:</p>
+                            <input type="password" id="custom-api-key" placeholder="AIzaSy..." class="w-full bg-white/5 border border-white/10 rounded px-2 py-1 text-xs text-white placeholder-gray-600 focus:outline-none focus:border-purple-500">
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Навигация по вкладкам ИИ (ИСПРАВЛЕНО: Кнопки теперь соответствуют дизайну переключателей таймера) -->
+                <div class="flex gap-2 mb-4 bg-black/20 p-1 rounded-lg">
+                    <button id="tab-plan" class="flex-1 py-1.5 text-xs rounded-lg border border-purple-500 bg-purple-600 text-white hover:bg-purple-500 transition-all font-bold shadow-lg shadow-purple-600/40">
+                        <i class="fa-solid fa-list-check mr-1.5"></i> Планировщик сессий
+                    </button>
+                    <button id="tab-motivate" class="flex-1 py-1.5 text-xs rounded-lg border border-purple-500/20 bg-purple-950/40 text-purple-200 hover:bg-purple-600/25 hover:text-white hover:border-purple-500/40 backdrop-blur-sm transition-all font-semibold shadow-inner">
+                        <i class="fa-solid fa-fire mr-1.5"></i> Заряд мотивации
+                    </button>
+                </div>
+
+                <!-- Контент вкладки: ... -->
+                <!-- Контент вкладки: Планировщик -->
+                <div id="panel-plan" class="flex-grow flex flex-col justify-between">
+                    <div class="flex gap-2 mb-3">
+                        <input type="text" id="ai-goal-input" placeholder="Какую задачу нужно разбить на помидорки? (напр. Написать отчет)" class="flex-grow bg-black/40 border border-white/10 rounded-xl px-4 py-2 text-xs text-white placeholder-gray-500 focus:outline-none focus:border-purple-500 transition-colors">
+                        <button id="btn-generate-plan" class="bg-purple-600 hover:bg-purple-500 text-white px-4 py-2 rounded-xl text-xs font-bold transition-all flex items-center gap-1.5">
+                            Создать ✨
+                        </button>
+                    </div>
+                    <!-- Область результатов планировщика -->
+                    <div id="ai-plan-result" class="flex-grow bg-black/20 border border-white/5 rounded-xl p-3 text-xs overflow-y-auto max-h-[220px] text-left leading-relaxed text-gray-300">
+                        Привет! Напишите вашу цель выше, и я составлю индивидуальный план работы, разбитый по классическим 25-минутным спринтам Pomodoro.
+                    </div>
+                </div>
+
+                <!-- Контент вкладки: Мотивация -->
+                <div id="panel-motivate" class="hidden flex-grow flex flex-col justify-between">
+                    <div class="grid grid-cols-3 gap-2 mb-3">
+                        <button onclick="generateMotivation('лень')" class="py-2 px-3 bg-red-500/10 hover:bg-red-500/20 border border-red-500/20 text-red-300 rounded-xl text-xs font-semibold transition-all">
+                            Лень ✨
+                        </button>
+                        <button onclick="generateMotivation('усталость')" class="py-2 px-3 bg-amber-500/10 hover:bg-amber-500/20 border border-amber-500/20 text-amber-300 rounded-xl text-xs font-semibold transition-all">
+                            Усталость ✨
+                        </button>
+                        <button onclick="generateMotivation('страх начать')" class="py-2 px-3 bg-blue-500/10 hover:bg-blue-500/20 border border-blue-500/20 text-blue-300 rounded-xl text-xs font-semibold transition-all">
+                            Прокрастинация ✨
+                        </button>
+                    </div>
+                    <!-- Область результатов мотивации -->
+                    <div id="ai-motivation-result" class="flex-grow bg-black/20 border border-white/5 rounded-xl p-4 text-xs overflow-y-auto max-h-[220px] text-left leading-relaxed text-gray-300 flex items-center justify-center italic text-center">
+                        Выберите ваше текущее состояние выше, чтобы сгенерировать порцию мощной ИИ-мотивации.
+                    </div>
+                </div>
+
+                <!-- Индикатор загрузки ИИ -->
+                <div id="ai-loader" class="absolute inset-0 bg-black/60 backdrop-blur-sm flex flex-col items-center justify-center gap-3 opacity-0 pointer-events-none transition-opacity duration-300 z-50">
+                    <div class="w-8 h-8 border-4 border-purple-500 border-t-transparent rounded-full animate-spin"></div>
+                    <p class="text-xs text-purple-300 font-semibold tracking-wider">AI обрабатывает запрос...</p>
+                </div>
+
+            </div>
+
+        </div>
+
+        <!-- Кнопки призыва к действию (CTA) -->
+        <div id="download" class="flex flex-col sm:flex-row gap-4 items-center justify-center mb-20 w-full">
+            <a href="#" class="w-full sm:w-auto px-8 py-4 rounded-xl bg-purple-600 hover:bg-purple-500 text-white font-bold text-lg transition-all shadow-xl shadow-purple-600/30 hover:shadow-purple-500/50 flex items-center justify-center gap-3 group">
+                <i class="fa-brands fa-windows text-xl group-hover:scale-110 transition-transform"></i>
+                Download for Windows (Store)
+            </a>
+            <span class="text-xs text-gray-500">Совместимо с Windows 10 & 11 (x64)</span>
+        </div>
+
+        <!-- Преимущества / Функции (Features) -->
+        <section id="features" class="w-full grid md:grid-cols-3 gap-8 text-left border-t border-white/10 pt-16 mb-20">
+            <div class="p-6 rounded-2xl bg-white/5 border border-white/10 hover:border-white/20 transition-all">
+                <div class="w-12 h-12 rounded-xl bg-purple-500/20 flex items-center justify-center text-purple-400 text-xl mb-4">
+                    <i class="fa-solid fa-compress"></i>
+                </div>
+                <h3 class="text-lg font-bold mb-2">Minimize Mode</h3>
+                <p class="text-sm text-gray-400">Компактный режим убирает всё лишнее, оставляя на экране только аккуратный круглый таймер с текущим временем.</p>
+            </div>
+            <div class="p-6 rounded-2xl bg-white/5 border border-white/10 hover:border-white/20 transition-all">
+                <div class="w-12 h-12 rounded-xl bg-purple-500/20 flex items-center justify-center text-purple-400 text-xl mb-4">
+                    <i class="fa-solid fa-eye-slash"></i>
+                </div>
+                <h3 class="text-lg font-bold mb-2">Always on Top</h3>
+                <p class="text-sm text-gray-400">Закрепите таймер поверх окон с регулируемой полупрозрачностью. Он будет перед глазами, но не помешает работать.</p>
+            </div>
+            <div class="p-6 rounded-2xl bg-white/5 border border-white/10 hover:border-white/20 transition-all">
+                <div class="w-12 h-12 rounded-xl bg-purple-500/20 flex items-center justify-center text-purple-400 text-xl mb-4">
+                    <i class="fa-solid fa-bell-slash"></i>
+                </div>
+                <h3 class="text-lg font-bold mb-2">Silent Notifications</h3>
+                <p class="text-sm text-gray-400">Полная тишина во время работы. Приложение деликатно напомнит о перерыве с помощью аккуратного тост-уведомления.</p>
+            </div>
+        </section>
+
+        <!-- Галерея скриншотов из Store -->
+        <section id="screenshots" class="w-full border-t border-white/10 pt-16">
+            <h2 class="text-2xl md:text-3xl font-bold tracking-tight mb-8">Скриншоты Windows Store</h2>
+            <div class="grid sm:grid-cols-3 gap-6">
+                <!-- Скриншот 1 -->
+                <div class="group relative rounded-xl overflow-hidden border border-white/10 bg-black/40 hover:border-purple-500/50 transition-all shadow-lg hover:shadow-purple-500/10">
+                    <div class="absolute inset-x-0 top-0 bg-gradient-to-b from-black/80 to-transparent p-4 z-10">
+                        <p class="text-xs uppercase tracking-widest font-bold text-gray-300">Скриншот 1</p>
+                        <h4 class="text-sm font-bold text-white">Intuitive & Simple</h4>
+                    </div>
+                    <div class="aspect-video bg-gray-800 flex items-center justify-center text-gray-600 overflow-hidden">
+                        <div class="text-center p-4 group-hover:scale-105 transition-transform duration-300">
+                            <span class="text-4xl block mb-2">🖥️</span>
+                            <span class="text-xs text-gray-400">Главный экран на рабочем столе</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Скриншот 2 -->
+                <div class="group relative rounded-xl overflow-hidden border border-white/10 bg-black/40 hover:border-purple-500/50 transition-all shadow-lg hover:shadow-purple-500/10">
+                    <div class="absolute inset-x-0 top-0 bg-gradient-to-b from-black/80 to-transparent p-4 z-10">
+                        <p class="text-xs uppercase tracking-widest font-bold text-gray-300">Скриншот 2</p>
+                        <h4 class="text-sm font-bold text-white">Minimize Mode</h4>
+                    </div>
+                    <div class="aspect-video bg-gray-800 flex items-center justify-center text-gray-600 overflow-hidden">
+                        <div class="text-center p-4 group-hover:scale-105 transition-transform duration-300">
+                            <span class="text-4xl block mb-2">🤏</span>
+                            <span class="text-xs text-gray-400">Мини-режим без лишних кнопок</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Скриншот 3 -->
+                <div class="group relative rounded-xl overflow-hidden border border-white/10 bg-black/40 hover:border-purple-500/50 transition-all shadow-lg hover:shadow-purple-500/10">
+                    <div class="absolute inset-x-0 top-0 bg-gradient-to-b from-black/80 to-transparent p-4 z-10">
+                        <p class="text-xs uppercase tracking-widest font-bold text-gray-300">Скриншот 3</p>
+                        <h4 class="text-sm font-bold text-white">Always on Top</h4>
+                    </div>
+                    <div class="aspect-video bg-gray-800 flex items-center justify-center text-gray-600 overflow-hidden">
+                        <div class="text-center p-4 group-hover:scale-105 transition-transform duration-300">
+                            <span class="text-4xl block mb-2">🪟</span>
+                            <span class="text-xs text-gray-400">Прозрачный режим поверх окон</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- Футер -->
+    <footer class="border-t border-white/10 bg-black/40 py-8">
+        <div class="max-w-6xl mx-auto px-6 flex flex-col sm:flex-row justify-between items-center gap-4 text-sm text-gray-500">
+            <div>
+                &copy; 2026 Tomatodo App. Все права защищены.
+            </div>
+            <div class="flex gap-6">
+                <a href="#" class="hover:text-white transition-colors">Конфиденциальность</a>
+                <a href="#" class="hover:text-white transition-colors">Поддержка</a>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Логика работы интерактивного таймера и ИИ -->
+    <script>
+        let timeLeft = 1500; // 25 минут по умолчанию
+        let timerId = null;
+        let isRunning = false;
+
+        const display = document.getElementById('timer-display');
+        const statusText = document.getElementById('timer-status');
+        const btnToggle = document.getElementById('btn-toggle');
+        const btnReset = document.getElementById('btn-reset'); // ИСПРАВЛЕНО: Добавлена инициализация кнопки Reset
+        const pomodoroApp = document.getElementById('pomodoro-app');
+        const pomodoroStem = document.getElementById('pomodoro-stem');
+        const btnPresets = document.getElementById('timer-presets');
+        const windowControls = document.getElementById('window-controls');
+        const timerShadow = document.getElementById('timer-shadow');
+        const toastDemo = document.getElementById('toast-demo');
+
+        // Режимы эмуляции таймера
+        const btnNormal = document.getElementById('btn-normal-mode');
+        const btnMin = document.getElementById('btn-minimize-mode');
+        const btnTrans = document.getElementById('btn-transparent-mode');
+
+        // Константы стилей кнопок
+        const INACTIVE_STYLE = "flex-1 py-1.5 text-[11px] rounded-lg border border-purple-500/20 bg-purple-950/40 text-purple-200 hover:bg-purple-600/25 hover:text-white hover:border-purple-500/40 backdrop-blur-sm transition-all font-semibold shadow-inner";
+        const ACTIVE_STYLE = "flex-1 py-1.5 text-[11px] rounded-lg border border-purple-500 bg-purple-600 text-white hover:bg-purple-500 transition-all font-bold shadow-lg shadow-purple-600/40";
+
+        // Новые константы стилей для вкладок ИИ (ИСПРАВЛЕНО: Полное соответствие кнопкам переключения режимов)
+        const TAB_INACTIVE_STYLE = "flex-1 py-1.5 text-xs rounded-lg border border-purple-500/20 bg-purple-950/40 text-purple-200 hover:bg-purple-600/25 hover:text-white hover:border-purple-500/40 backdrop-blur-sm transition-all font-semibold shadow-inner";
+        const TAB_ACTIVE_STYLE = "flex-1 py-1.5 text-xs rounded-lg border border-purple-500 bg-purple-600 text-white hover:bg-purple-500 transition-all font-bold shadow-lg shadow-purple-600/40";
+
+        // Элементы ИИ
+        const tabPlan = document.getElementById('tab-plan');
+        const tabMotivate = document.getElementById('tab-motivate');
+        const panelPlan = document.getElementById('panel-plan');
+        const panelMotivate = document.getElementById('panel-motivate');
+        const aiLoader = document.getElementById('ai-loader');
+        const aiPlanResult = document.getElementById('ai-plan-result');
+        const aiMotivationResult = document.getElementById('ai-motivation-result');
+        const aiGoalInput = document.getElementById('ai-goal-input');
+        const btnGeneratePlan = document.getElementById('btn-generate-plan');
+        const customApiKeyInput = document.getElementById('custom-api-key');
+
+        function updateDisplay() {
+            const minutes = Math.floor(timeLeft / 60);
+            const seconds = timeLeft % 60;
+            display.textContent = `${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
+        }
+
+        function setTimer(minutes) {
+            if (isRunning) toggleTimer();
+            timeLeft = minutes * 60;
+            updateDisplay();
+        }
+
+        function toggleTimer() {
+            if (isRunning) {
+                // Ставим на паузу
+                clearInterval(timerId);
+                btnToggle.innerHTML = '<i class="fa-solid fa-play mr-1"></i> Start';
+                btnToggle.classList.remove('bg-amber-600', 'hover:bg-amber-500');
+                btnToggle.classList.add('bg-green-600', 'hover:bg-green-500');
+                pomodoroApp.classList.remove('timer-active');
+                isRunning = false;
+            } else {
+                // Запускаем
+                isRunning = true;
+                btnToggle.innerHTML = '<i class="fa-solid fa-pause mr-1"></i> Pause';
+                btnToggle.classList.remove('bg-green-600', 'hover:bg-green-500');
+                btnToggle.classList.add('bg-amber-600', 'hover:bg-amber-500');
+                pomodoroApp.classList.add('timer-active');
+                
+                timerId = setInterval(() => {
+                    if (timeLeft > 0) {
+                        timeLeft--;
+                        updateDisplay();
+                    } else {
+                        // Таймер закончен!
+                        clearInterval(timerId);
+                        triggerNotification();
+                        resetTimer();
+                    }
+                }, 1000);
+            }
+        }
+
+        function resetTimer() {
+            if (isRunning) toggleTimer();
+            timeLeft = 1500;
+            updateDisplay();
+        }
+
+        function triggerNotification() {
+            toastDemo.classList.remove('opacity-0', 'translate-y-4', 'pointer-events-none');
+            toastDemo.classList.add('opacity-100', 'translate-y-0');
+            setTimeout(closeToast, 8000);
+        }
+
+        function closeToast() {
+            toastDemo.classList.remove('opacity-100', 'translate-y-0');
+            toastDemo.classList.add('opacity-0', 'translate-y-4', 'pointer-events-none');
+        }
+
+        // Вспомогательная функция для динамической подстройки контента в зависимости от компактности
+        function setMinimizeControls(isMin) {
+            const timerDisplay = document.getElementById('timer-display');
+            const timerStatus = document.getElementById('timer-status');
+            const timerControlsContainer = btnToggle.parentElement;
+
+            if (isMin) {
+                // Уменьшаем размер основного циферблата
+                timerDisplay.classList.remove('text-5xl');
+                timerDisplay.classList.add('text-3xl', 'mt-1');
+
+                // Уменьшаем подпись состояния
+                timerStatus.classList.remove('text-xs');
+                timerStatus.classList.add('text-[9px]');
+
+                // Сжимаем расстояние в контейнере кнопок
+                timerControlsContainer.classList.remove('mt-5', 'gap-3');
+                timerControlsContainer.classList.add('mt-2.5', 'gap-1.5');
+
+                // Уменьшаем паддинги и шрифты на кнопках управления
+                btnToggle.classList.remove('px-4', 'py-1.5', 'text-xs');
+                btnToggle.classList.add('px-2.5', 'py-0.5', 'text-[10px]');
+
+                btnReset.classList.remove('px-4', 'py-1.5', 'text-xs');
+                btnReset.classList.add('px-2.5', 'py-0.5', 'text-[10px]');
+            } else {
+                // Возвращаем исходный крупный циферблат
+                timerDisplay.classList.add('text-5xl');
+                timerDisplay.classList.remove('text-3xl', 'mt-1');
+
+                // Возвращаем подпись состояния
+                timerStatus.classList.add('text-xs');
+                timerStatus.classList.remove('text-[9px]');
+
+                // Расширяем расстояние в контейнере кнопок обратно
+                timerControlsContainer.classList.add('mt-5', 'gap-3');
+                timerControlsContainer.classList.remove('mt-2.5', 'gap-1.5');
+
+                // Возвращаем исходные размеры кнопок управления
+                btnToggle.classList.add('px-4', 'py-1.5', 'text-xs');
+                btnToggle.classList.remove('px-2.5', 'py-0.5', 'text-[10px]');
+
+                btnReset.classList.add('px-4', 'py-1.5', 'text-xs');
+                btnReset.classList.remove('px-2.5', 'py-0.5', 'text-[10px]');
+            }
+        }
+
+        // Логика переключения визуальных режимов
+        function resetClasses() {
+            pomodoroApp.style.transform = '';
+            pomodoroApp.style.opacity = '';
+            pomodoroApp.classList.remove('w-44', 'h-44');
+            pomodoroApp.classList.add('w-72', 'h-72');
+            pomodoroStem.style.transform = '';
+            btnPresets.classList.remove('hidden');
+            windowControls.classList.remove('hidden');
+            timerShadow.classList.remove('w-32');
+            timerShadow.classList.add('w-56');
+
+            // Сбрасываем все кнопки к неактивному стилю
+            btnNormal.className = INACTIVE_STYLE;
+            btnMin.className = INACTIVE_STYLE;
+            btnTrans.className = INACTIVE_STYLE;
+
+            // Восстанавливаем дефолтные размеры элементов внутри таймера
+            setMinimizeControls(false);
+        }
+
+        btnNormal.addEventListener('click', () => {
+            resetClasses();
+            btnNormal.className = ACTIVE_STYLE;
+        });
+
+        btnMin.addEventListener('click', () => {
+            resetClasses();
+            // Компактный режим
+            pomodoroApp.classList.remove('w-72', 'h-72');
+            pomodoroApp.classList.add('w-44', 'h-44');
+            pomodoroStem.style.transform = 'scale(0.7) translateY(-5px)';
+            btnPresets.classList.add('hidden');
+            windowControls.classList.add('hidden');
+            timerShadow.classList.remove('w-56');
+            timerShadow.classList.add('w-32');
+            btnMin.className = ACTIVE_STYLE;
+
+            // Сжимаем элементы управления внутри таймера для хорошей эргономики
+            setMinimizeControls(true);
+        });
+
+        btnTrans.addEventListener('click', () => {
+            resetClasses();
+            pomodoroApp.style.opacity = '0.4';
+            btnTrans.className = ACTIVE_STYLE;
+        });
+
+        btnToggle.addEventListener('click', toggleTimer);
+        btnReset.addEventListener('click', resetTimer);
+
+
+        /* ================= GEMINI API INTEGRATION ================= */
+
+        // Логика экспоненциальной задержки при ошибках API
+        async function callGemini(prompt, systemInstruction = "") {
+            const customKey = customApiKeyInput.value.trim();
+            const apiKey = customKey || ""; 
+            
+            const url = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash-preview-09-2025:generateContent?key=${apiKey}`;
+            
+            const payload = {
+                contents: [{ parts: [{ text: prompt }] }]
+            };
+            if (systemInstruction) {
+                payload.systemInstruction = { parts: [{ text: systemInstruction }] };
+            }
+
+            let delay = 1000;
+            for (let i = 0; i < 5; i++) {
+                try {
+                    const response = await fetch(url, {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify(payload)
+                    });
+                    if (response.ok) {
+                        const data = await response.json();
+                        return data.candidates?.[0]?.content?.parts?.[0]?.text || "Ошибка генерации";
+                    }
+                } catch (e) {
+                    // Ошибки не логируются в консоль согласно инструкции по безопасности
+                }
+                await new Promise(resolve => setTimeout(resolve, delay));
+                delay *= 2;
+            }
+            throw new Error("Не удалось подключиться к API после нескольких попыток. Пожалуйста, проверьте подключение к сети или предоставьте собственный API Ключ.");
+        }
+
+        // Переключение вкладок ИИ (ИСПРАВЛЕНО: Теперь используются новые классы стилей для идентичного рендеринга)
+        tabPlan.addEventListener('click', () => {
+            tabPlan.className = TAB_ACTIVE_STYLE;
+            tabMotivate.className = TAB_INACTIVE_STYLE;
+            panelPlan.classList.remove('hidden');
+            panelMotivate.classList.add('hidden');
+        });
+
+        tabMotivate.addEventListener('click', () => {
+            tabMotivate.className = TAB_ACTIVE_STYLE;
+            tabPlan.className = TAB_INACTIVE_STYLE;
+            panelMotivate.classList.remove('hidden');
+            panelPlan.classList.add('hidden');
+        });
+
+        // Функция 1: Генератор плана сессий
+        async function generateFocusPlan() {
+            const goal = aiGoalInput.value.trim();
+            if (!goal) {
+                aiPlanResult.innerHTML = "<span class='text-red-400'>Пожалуйста, введите вашу задачу или цель!</span>";
+                return;
+            }
+
+            aiLoader.classList.remove('opacity-0', 'pointer-events-none');
+            
+            const systemPrompt = "Ты — эксперт по тайм-менеджменту и методологии Pomodoro. Твоя задача — разбить цель пользователя на конкретные 25-минутные рабочие спринты. Пиши кратко, в виде пунктов. Отвечай на русском языке.";
+            const userPrompt = `Моя цель: "${goal}". Разбей её на 3-4 сессии Pomodoro по 25 минут каждая. Напиши, что именно делать в каждую сессию.`;
+
+            try {
+                const responseText = await callGemini(userPrompt, systemPrompt);
+                
+                // Форматируем markdown-подобный текст в HTML
+                aiPlanResult.innerHTML = responseText
+                    .replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>')
+                    .replace(/\* /g, '• ')
+                    .replace(/\n/g, '<br>');
+            } catch (err) {
+                aiPlanResult.innerHTML = `<span class='text-red-400'>Произошла ошибка: ${err.message}. Убедитесь в стабильности интернета или укажите свой API Ключ в настройках выше.</span>`;
+            } finally {
+                aiLoader.classList.add('opacity-0', 'pointer-events-none');
+            }
+        }
+
+        // Функция 2: Генератор мотивационных лозунгов
+        async function generateMotivation(state) {
+            aiLoader.classList.remove('opacity-0', 'pointer-events-none');
+            
+            const systemPrompt = "Ты — дружелюбный и мудрый AI-наставник по продуктивности. Твоя цель — подбодрить пользователя, дать ему мощный заряд мотивации в одно предложение. Отвечай на русском языке.";
+            const userPrompt = `Я чувствую сейчас следующее состояние: "${state}". Поддержи меня и помоги начать работать по таймеру Pomodoro. Дай одно мощное мотивирующее предложение.`;
+
+            try {
+                const responseText = await callGemini(userPrompt, systemPrompt);
+                aiMotivationResult.innerHTML = `«${responseText.trim()}»`;
+            } catch (err) {
+                aiMotivationResult.innerHTML = `<span class='text-red-400'>Произошла ошибка: ${err.message}. Убедитесь в стабильности интернета или укажите свой API Ключ в настройках выше.</span>`;
+            } finally {
+                aiLoader.classList.add('opacity-0', 'pointer-events-none');
+            }
+        }
+
+        btnGeneratePlan.addEventListener('click', generateFocusPlan);
+        aiGoalInput.addEventListener('keydown', (e) => {
+            if (e.key === 'Enter') generateFocusPlan();
+        });
+
+        // Инициализация отображения таймера при загрузке
+        updateDisplay();
+    </script>
+</body>
+</html>
