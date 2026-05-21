@@ -3,7 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Tomatodo - Intuitive & Simple Pomodoro Timer for Windows</title>
+    <title>LifeTime Pomodoro - Intuitive & Simple Pomodoro Timer for Windows</title>
+    <link rel="preload" as="image" href="assets/Intuitive%20%26%20Simple.png">
     <link rel="preload" as="image" href="assets/Silent%20Mode.png">
     <link rel="preload" as="image" href="assets/MINIMIZE.png">
     <link rel="preload" as="image" href="assets/TRANSPARENT.png">
@@ -99,8 +100,35 @@
             </p>
         </div>
 
+        <!-- Превью главного скриншота -->
+        <section class="w-full mb-12">
+            <div class="group relative max-w-3xl mx-auto rounded-2xl overflow-hidden border border-white/10 bg-black/40 hover:border-purple-500/50 transition-all shadow-xl hover:shadow-purple-500/20">
+                <div class="absolute inset-x-0 top-0 bg-gradient-to-b from-black/80 to-transparent p-5 z-10 text-left pointer-events-none">
+                    <h2 class="text-lg md:text-xl font-bold text-white">Главный экран приложения</h2>
+                    <p class="text-xs md:text-sm text-gray-300 mt-1">Нажмите, чтобы открыть скриншот в полном размере</p>
+                </div>
+                <button
+                    type="button"
+                    class="open-screenshot-modal block w-full aspect-[18/10] bg-gray-800 overflow-hidden text-left"
+                    data-full-image="assets/Intuitive%20%26%20Simple.png"
+                    data-modal-title="Intuitive & Simple full-size screenshot"
+                    data-modal-alt="Intuitive & Simple full-size screenshot"
+                    aria-label="Open Intuitive and Simple screenshot full size"
+                >
+                    <img src="assets/Intuitive%20%26%20Simple.png" alt="Intuitive and Simple screenshot" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300" />
+                </button>
+            </div>
+        </section>
+
+        <!-- CTA перед интерактивным блоком -->
+        <div class="mb-8 text-center">
+            <p class="text-xs md:text-sm uppercase tracking-[0.28em] text-purple-300/90 font-semibold">
+                Try it right here:
+            </p>
+        </div>
+
         <!-- ДВУХКОЛОНОЧНЫЙ ИНТЕРАКТИВНЫЙ БЛОК (Таймер + ИИ) -->
-        <div id="interactive" class="w-full grid lg:grid-cols-12 gap-8 items-start mb-20">
+        <div id="interactive" class="w-full grid lg:grid-cols-12 gap-8 items-start mb-10">
             
             <!-- Левая колонка: Таймер -->
             <div class="lg:col-span-5 flex flex-col items-center">
@@ -281,22 +309,22 @@
         </div>
 
         <!-- Преимущества / Функции (Features) -->
-        <section id="features" class="w-full grid md:grid-cols-3 gap-8 text-left border-t border-white/10 pt-16 mb-20">
-            <div class="p-6 rounded-2xl bg-white/5 border border-white/10 hover:border-white/20 transition-all">
+        <section id="features" class="w-full grid md:grid-cols-3 gap-8 text-left border-t border-white/10 pt-5 mb-10">
+            <div id="feature-1" class="p-6 rounded-2xl bg-purple-200/40 backdrop-blur-md border border-purple-200/30 shadow-lg shadow-purple-900/20 hover:bg-purple-200/15 hover:border-purple-200/50 transition-all">
                 <div class="w-12 h-12 rounded-xl bg-purple-500/20 flex items-center justify-center text-purple-400 text-xl mb-4">
                     <i class="fa-solid fa-compress"></i>
                 </div>
                 <h3 class="text-lg font-bold mb-2">Minimize Mode</h3>
                 <p class="text-sm text-gray-400">Компактный режим убирает всё лишнее, оставляя на экране только аккуратный круглый таймер с текущим временем.</p>
             </div>
-            <div class="p-6 rounded-2xl bg-white/5 border border-white/10 hover:border-white/20 transition-all">
+            <div id="feature-2" class="p-6 rounded-2xl bg-purple-200/40 backdrop-blur-md border border-purple-200/30 shadow-lg shadow-purple-900/20 hover:bg-purple-200/15 hover:border-purple-200/50 transition-all">
                 <div class="w-12 h-12 rounded-xl bg-purple-500/20 flex items-center justify-center text-purple-400 text-xl mb-4">
                     <i class="fa-solid fa-eye-slash"></i>
                 </div>
                 <h3 class="text-lg font-bold mb-2">Always on Top</h3>
                 <p class="text-sm text-gray-400">Закрепите таймер поверх окон с регулируемой полупрозрачностью. Он будет перед глазами, но не помешает работать.</p>
             </div>
-            <div class="p-6 rounded-2xl bg-white/5 border border-white/10 hover:border-white/20 transition-all">
+            <div id="feature-3" class="p-6 rounded-2xl bg-purple-200/40 backdrop-blur-md border border-purple-200/30 shadow-lg shadow-purple-900/20 hover:bg-purple-200/15 hover:border-purple-200/50 transition-all">
                 <div class="w-12 h-12 rounded-xl bg-purple-500/20 flex items-center justify-center text-purple-400 text-xl mb-4">
                     <i class="fa-solid fa-bell-slash"></i>
                 </div>
@@ -314,9 +342,6 @@
                     <div class="absolute inset-x-0 top-0 bg-gradient-to-b from-black/80 to-transparent p-4 z-10 text-right">
                         <h4 class="text-sm font-bold text-white">Transparent Mode</h4>
                     </div>
-                    <div class="absolute inset-0 z-10 pointer-events-none flex items-center justify-center">
-                        <span class="text-xs text-gray-300 bg-black/35 px-3 py-1 rounded-md">Прозрачный режим поверх окон</span>
-                    </div>
                     <button type="button" class="open-screenshot-modal block w-full aspect-video bg-gray-800 overflow-hidden text-left" data-full-image="assets/TRANSPARENT.png" data-modal-title="Transparent Mode full-size screenshot" data-modal-alt="Transparent Mode full-size screenshot" aria-label="Open Transparent Mode screenshot full size">
                         <img src="assets/TRANSPARENT.png" alt="Transparent Mode screenshot" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300" />
                     </button>
@@ -327,9 +352,6 @@
                     <div class="absolute inset-x-0 top-0 bg-gradient-to-b from-black/80 to-transparent p-4 z-10 text-right">
                         <h4 class="text-sm font-bold text-white">Minimize Mode</h4>
                     </div>
-                    <div class="absolute inset-0 z-10 pointer-events-none flex items-center justify-center">
-                        <span class="text-xs text-gray-300 bg-black/35 px-3 py-1 rounded-md">Мини-режим без лишних кнопок</span>
-                    </div>
                     <button type="button" class="open-screenshot-modal block w-full aspect-video bg-gray-800 overflow-hidden text-left" data-full-image="assets/MINIMIZE.png" data-modal-title="Minimize Mode full-size screenshot" data-modal-alt="Minimize Mode full-size screenshot" aria-label="Open Minimize Mode screenshot full size">
                         <img src="assets/MINIMIZE.png" alt="Minimize Mode screenshot" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300" />
                     </button>
@@ -339,9 +361,6 @@
                 <div id="screenshot-3" class="group relative rounded-xl overflow-hidden border border-white/10 bg-black/40 hover:border-purple-500/50 transition-all shadow-lg hover:shadow-purple-500/10">
                     <div class="absolute inset-x-0 top-0 bg-gradient-to-b from-black/80 to-transparent p-4 z-10 pointer-events-none text-right">
                         <h4 class="text-sm font-bold text-white">Silen Mode</h4>
-                    </div>
-                    <div class="absolute inset-0 z-10 pointer-events-none flex items-center justify-center">
-                        <span class="text-xs text-gray-300 bg-black/25 px-3 py-1 rounded-md">Тихий режим с тост-уведомлением</span>
                     </div>
                     <button type="button" class="open-screenshot-modal block w-full aspect-video bg-gray-800 overflow-hidden text-left" data-full-image="assets/Silent%20Mode.png" data-modal-title="Silen Mode full-size screenshot" data-modal-alt="Silen Mode full-size screenshot" aria-label="Open Silen Mode screenshot full size">
                         <img src="assets/Silent%20Mode.png" alt="Silen Mode screenshot" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300" />
