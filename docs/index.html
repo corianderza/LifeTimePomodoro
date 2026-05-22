@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="ru">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -56,8 +56,7 @@
         /* Модалка для полноразмерного просмотра скриншота */
         .lightbox-open {
             overflow: hidden;
-        }
-    </style>
+        }    </style>
 </head>
 <body class="hero-bg min-h-screen flex flex-col justify-between">
 
@@ -72,16 +71,22 @@
             
             <!-- Меню -->
             <div class="hidden md:flex items-center gap-8 text-sm text-gray-300 font-medium">
-                <a href="#features" class="hover:text-white transition-colors">Функции</a>
-                <a href="#interactive" class="hover:text-white transition-colors">Попробовать онлайн</a>
-                <a href="#ai-companion" class="hover:text-white transition-colors">AI Помощник</a>
-                <a href="#screenshots" class="hover:text-white transition-colors">Скриншоты</a>
+                <a href="#features" class="hover:text-white transition-colors" data-i18n="nav.features">Features</a>
+                <a href="#interactive" class="hover:text-white transition-colors" data-i18n="nav.tryOnline">Try online</a>
+                <a href="#ai-companion" class="hover:text-white transition-colors" data-i18n="nav.aiCompanion">AI Companion</a>
+                <a href="#screenshots" class="hover:text-white transition-colors" data-i18n="nav.screenshots">Screenshots</a>
             </div>
 
             <!-- Кнопка действия -->
-            <div>
-                <a href="#download" class="bg-purple-600 hover:bg-purple-500 text-white px-5 py-2 rounded-full text-sm font-semibold transition-all shadow-lg shadow-purple-600/20 hover:shadow-purple-500/40">
-                    Установить
+            <div class="flex items-center gap-2">
+                <label for="language-select" class="sr-only" data-i18n="nav.language">Language</label>
+                <select id="language-select" class="bg-violet-200/20 border border-violet-200/40 text-white text-xs font-semibold rounded-full px-3 py-2 focus:outline-none focus:border-violet-300">
+                    <option value="en" class="bg-violet-200/20 text-violet-950">EN</option>
+                    <option value="es" class="bg-violet-200/20 text-violet-950">ES</option>
+                    <option value="ru" class="bg-violet-200/20 text-violet-950">RU</option>
+                </select>
+                <a href="#download" class="bg-purple-600 hover:bg-purple-500 text-white px-5 py-2 rounded-full text-sm font-semibold transition-all shadow-lg shadow-purple-600/20 hover:shadow-purple-500/40" data-i18n="nav.install">
+                    Install
                 </a>
             </div>
         </div>
@@ -95,8 +100,8 @@
             <h1 class="text-4xl md:text-6xl font-bold tracking-wide uppercase max-w-4xl leading-tight mb-4">
                 Intuitive & Simple
             </h1>
-            <p class="text-lg md:text-xl text-gray-400 max-w-2xl mx-auto">
-                Минималистичный Pomodoro-таймер для Windows, теперь усиленный искусственным интеллектом для максимальной концентрации.
+            <p class="text-lg md:text-xl text-gray-400 max-w-2xl mx-auto" data-i18n="hero.subtitle">
+                A minimal Pomodoro timer for Windows, now boosted with AI for deeper focus.
             </p>
         </div>
 
@@ -104,8 +109,8 @@
         <section class="w-full mb-12">
             <div class="group relative max-w-3xl mx-auto rounded-2xl overflow-hidden border border-white/10 bg-black/40 hover:border-purple-500/50 transition-all shadow-xl hover:shadow-purple-500/20">
                 <div class="absolute inset-x-0 top-0 bg-gradient-to-b from-black/80 to-transparent p-5 z-10 text-left pointer-events-none">
-                    <h2 class="text-lg md:text-xl font-bold text-white">Главный экран приложения</h2>
-                    <p class="text-xs md:text-sm text-gray-300 mt-1">Нажмите, чтобы открыть скриншот в полном размере</p>
+                    <h2 class="text-lg md:text-xl font-bold text-white" data-i18n="preview.title">Main app screen</h2>
+                    <p class="text-xs md:text-sm text-gray-300 mt-1" data-i18n="preview.hint">Click to open full-size screenshot</p>
                 </div>
                 <button
                     type="button"
@@ -113,16 +118,19 @@
                     data-full-image="assets/Intuitive%20%26%20Simple.png"
                     data-modal-title="Intuitive & Simple full-size screenshot"
                     data-modal-alt="Intuitive & Simple full-size screenshot"
+                    data-i18n-modal-title="screenshots.main.modalTitle"
+                    data-i18n-modal-alt="screenshots.main.modalAlt"
+                    data-i18n-aria-label="screenshots.main.aria"
                     aria-label="Open Intuitive and Simple screenshot full size"
                 >
-                    <img src="assets/Intuitive%20%26%20Simple.png" alt="Intuitive and Simple screenshot" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300" />
+                    <img src="assets/Intuitive%20%26%20Simple.png" alt="Intuitive and Simple screenshot" data-i18n-alt="screenshots.main.alt" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300" />
                 </button>
             </div>
         </section>
 
         <!-- CTA перед интерактивным блоком -->
         <div class="mb-8 text-center">
-            <p class="text-xs md:text-sm uppercase tracking-[0.28em] text-purple-300/90 font-semibold">
+            <p class="text-xs md:text-sm uppercase tracking-[0.28em] text-purple-300/90 font-semibold" data-i18n="cta.tryHere">
                 Try it right here:
             </p>
         </div>
@@ -135,14 +143,14 @@
                 
                 <!-- Контроллеры эффектов для демонстрации фич -->
                 <div class="flex justify-center gap-2 mb-6 w-full max-w-sm">
-                    <button id="btn-normal-mode" class="flex-1 py-1.5 text-[11px] rounded-lg border border-purple-500 bg-purple-600 text-white hover:bg-purple-500 transition-all font-bold shadow-lg shadow-purple-600/40">
+                    <button id="btn-normal-mode" class="flex-1 py-1.5 text-[11px] rounded-lg border border-purple-500 bg-purple-600 text-white hover:bg-purple-500 transition-all font-bold shadow-lg shadow-purple-600/40" data-i18n="timer.modeDefault">
                         Default
                     </button>
                     <button id="btn-minimize-mode" class="flex-1 py-1.5 text-[11px] rounded-lg border border-purple-500/20 bg-purple-950/40 text-purple-200 hover:bg-purple-600/25 hover:text-white hover:border-purple-500/40 backdrop-blur-sm transition-all font-semibold shadow-inner">
-                        <i class="fa-solid fa-compress mr-1"></i> Minimize
+                        <i class="fa-solid fa-compress mr-1"></i><span data-i18n="timer.modeMinimize">Minimize</span>
                     </button>
                     <button id="btn-transparent-mode" class="flex-1 py-1.5 text-[11px] rounded-lg border border-purple-500/20 bg-purple-950/40 text-purple-200 hover:bg-purple-600/25 hover:text-white hover:border-purple-500/40 backdrop-blur-sm transition-all font-semibold shadow-inner">
-                        <i class="fa-solid fa-eye-slash mr-1"></i> Transparent
+                        <i class="fa-solid fa-eye-slash mr-1"></i><span data-i18n="timer.modeTransparent">Transparent</span>
                     </button>
                 </div>
 
@@ -171,8 +179,8 @@
                             25:00
                         </div>
                         <!-- Мелкая подпись режима -->
-                        <div id="timer-status" class="text-xs uppercase tracking-widest text-red-300 mt-1 font-semibold select-none">
-                            Сессия
+                        <div id="timer-status" class="text-xs uppercase tracking-widest text-red-300 mt-1 font-semibold select-none" data-i18n="timer.session">
+                            Session
                         </div>
                     </div>
 
@@ -188,7 +196,7 @@
                         <button id="btn-toggle" class="px-4 py-1.5 rounded-md bg-green-600 hover:bg-green-500 text-white text-xs font-semibold uppercase tracking-wider shadow-md transition-all duration-350">
                             <i class="fa-solid fa-play mr-1"></i> Start
                         </button>
-                        <button id="btn-reset" class="px-4 py-1.5 rounded-md bg-white/5 hover:bg-white/10 border border-white/10 text-white text-xs font-semibold uppercase tracking-wider transition-all duration-350">
+                        <button id="btn-reset" class="px-4 py-1.5 rounded-md bg-white/5 hover:bg-white/10 border border-white/10 text-white text-xs font-semibold uppercase tracking-wider transition-all duration-350" data-i18n="timer.reset">
                             Reset
                         </button>
                     </div>
@@ -204,8 +212,8 @@
                 <div id="toast-demo" class="mt-4 bg-gray-900/95 border border-white/10 backdrop-blur-md p-4 rounded-xl shadow-2xl w-72 text-left flex gap-3 transform translate-y-4 opacity-0 pointer-events-none transition-all duration-500 z-30">
                     <div class="text-2xl text-red-400">🍅</div>
                     <div>
-                        <h4 class="text-sm font-bold text-white">Время вышло!</h4>
-                        <p class="text-xs text-gray-400 mt-0.5">Отличная работа. Пора сделать заслуженный короткий перерыв (5 мин).</p>
+                        <h4 class="text-sm font-bold text-white" data-i18n="toast.title">Time is up!</h4>
+                        <p class="text-xs text-gray-400 mt-0.5" data-i18n="toast.body">Great job. Time for a well-deserved short break (5 min).</p>
                     </div>
                     <button onclick="closeToast()" class="absolute top-2 right-2 text-gray-500 hover:text-white text-xs">
                         <i class="fa-solid fa-xmark"></i>
@@ -229,18 +237,18 @@
                             <h3 class="font-bold text-sm tracking-wide text-white flex items-center gap-1.5">
                                 AI Focus Companion
                             </h3>
-                            <p class="text-[10px] text-gray-400">Powered by Gemini 2.5 Flash</p>
+                            <p class="text-[10px] text-gray-400" data-i18n="ai.poweredBy">Powered by Gemini 2.5 Flash</p>
                         </div>
                     </div>
                     
                     <!-- Тонкая настройка API ключа (Опционально для пользователя) -->
                     <div class="relative group">
                         <button class="text-xs text-gray-400 hover:text-white bg-white/5 px-2.5 py-1 rounded-md border border-white/5 flex items-center gap-1">
-                            <i class="fa-solid fa-key text-[10px]"></i> API Key
+                            <i class="fa-solid fa-key text-[10px]"></i><span data-i18n="ai.apiKey">API Key</span>
                         </button>
                         <div class="absolute right-0 top-8 bg-gray-950 border border-white/10 rounded-lg p-3 w-64 shadow-2xl hidden group-hover:block hover:block z-50">
-                            <p class="text-[10px] text-gray-400 mb-2">Если хотите использовать собственный API Ключ Gemini:</p>
-                            <input type="password" id="custom-api-key" placeholder="AIzaSy..." class="w-full bg-white/5 border border-white/10 rounded px-2 py-1 text-xs text-white placeholder-gray-600 focus:outline-none focus:border-purple-500">
+                            <p class="text-[10px] text-gray-400 mb-2" data-i18n="ai.apiHint">If you want to use your own Gemini API key:</p>
+                            <input type="password" id="custom-api-key" data-i18n-placeholder="ai.apiPlaceholder" placeholder="AIzaSy..." class="w-full bg-white/5 border border-white/10 rounded px-2 py-1 text-xs text-white placeholder-gray-600 focus:outline-none focus:border-purple-500">
                         </div>
                     </div>
                 </div>
@@ -248,10 +256,10 @@
                 <!-- Навигация по вкладкам ИИ (ИСПРАВЛЕНО: Кнопки теперь соответствуют дизайну переключателей таймера) -->
                 <div class="flex gap-2 mb-4 bg-black/20 p-1 rounded-lg">
                     <button id="tab-plan" class="flex-1 py-1.5 text-xs rounded-lg border border-purple-500 bg-purple-600 text-white hover:bg-purple-500 transition-all font-bold shadow-lg shadow-purple-600/40">
-                        <i class="fa-solid fa-list-check mr-1.5"></i> Планировщик сессий
+                        <i class="fa-solid fa-list-check mr-1.5"></i><span data-i18n="ai.tabPlanner">Session planner</span>
                     </button>
                     <button id="tab-motivate" class="flex-1 py-1.5 text-xs rounded-lg border border-purple-500/20 bg-purple-950/40 text-purple-200 hover:bg-purple-600/25 hover:text-white hover:border-purple-500/40 backdrop-blur-sm transition-all font-semibold shadow-inner">
-                        <i class="fa-solid fa-fire mr-1.5"></i> Заряд мотивации
+                        <i class="fa-solid fa-fire mr-1.5"></i><span data-i18n="ai.tabMotivation">Motivation boost</span>
                     </button>
                 </div>
 
@@ -259,40 +267,40 @@
                 <!-- Контент вкладки: Планировщик -->
                 <div id="panel-plan" class="flex-grow flex flex-col justify-between">
                     <div class="flex gap-2 mb-3">
-                        <input type="text" id="ai-goal-input" placeholder="Какую задачу нужно разбить на помидорки? (напр. Написать отчет)" class="flex-grow bg-black/40 border border-white/10 rounded-xl px-4 py-2 text-xs text-white placeholder-gray-500 focus:outline-none focus:border-purple-500 transition-colors">
-                        <button id="btn-generate-plan" class="bg-purple-600 hover:bg-purple-500 text-white px-4 py-2 rounded-xl text-xs font-bold transition-all flex items-center gap-1.5">
-                            Создать ✨
+                        <input type="text" id="ai-goal-input" data-i18n-placeholder="ai.goalPlaceholder" placeholder="What task should I split into Pomodoros? (e.g., Write report)" class="flex-grow bg-black/40 border border-white/10 rounded-xl px-4 py-2 text-xs text-white placeholder-gray-500 focus:outline-none focus:border-purple-500 transition-colors">
+                        <button id="btn-generate-plan" class="bg-purple-600 hover:bg-purple-500 text-white px-4 py-2 rounded-xl text-xs font-bold transition-all flex items-center gap-1.5" data-i18n="ai.generate">
+                            Generate ✨
                         </button>
                     </div>
                     <!-- Область результатов планировщика -->
-                    <div id="ai-plan-result" class="flex-grow bg-black/20 border border-white/5 rounded-xl p-3 text-xs overflow-y-auto max-h-[220px] text-left leading-relaxed text-gray-300">
-                        Привет! Напишите вашу цель выше, и я составлю индивидуальный план работы, разбитый по классическим 25-минутным спринтам Pomodoro.
+                    <div id="ai-plan-result" class="flex-grow bg-black/20 border border-white/5 rounded-xl p-3 text-xs overflow-y-auto max-h-[220px] text-left leading-relaxed text-gray-300" data-i18n="ai.planDefault">
+                        Hi! Enter your goal above and I will build a custom plan split into classic 25-minute Pomodoro sprints.
                     </div>
                 </div>
 
                 <!-- Контент вкладки: Мотивация -->
                 <div id="panel-motivate" class="hidden flex-grow flex flex-col justify-between">
                     <div class="grid grid-cols-3 gap-2 mb-3">
-                        <button onclick="generateMotivation('лень')" class="py-2 px-3 bg-red-500/10 hover:bg-red-500/20 border border-red-500/20 text-red-300 rounded-xl text-xs font-semibold transition-all">
-                            Лень ✨
+                        <button onclick="generateMotivation('laziness')" class="py-2 px-3 bg-red-500/10 hover:bg-red-500/20 border border-red-500/20 text-red-300 rounded-xl text-xs font-semibold transition-all" data-i18n="ai.stateLaziness">
+                            Laziness ✨
                         </button>
-                        <button onclick="generateMotivation('усталость')" class="py-2 px-3 bg-amber-500/10 hover:bg-amber-500/20 border border-amber-500/20 text-amber-300 rounded-xl text-xs font-semibold transition-all">
-                            Усталость ✨
+                        <button onclick="generateMotivation('fatigue')" class="py-2 px-3 bg-amber-500/10 hover:bg-amber-500/20 border border-amber-500/20 text-amber-300 rounded-xl text-xs font-semibold transition-all" data-i18n="ai.stateFatigue">
+                            Fatigue ✨
                         </button>
-                        <button onclick="generateMotivation('страх начать')" class="py-2 px-3 bg-blue-500/10 hover:bg-blue-500/20 border border-blue-500/20 text-blue-300 rounded-xl text-xs font-semibold transition-all">
-                            Прокрастинация ✨
+                        <button onclick="generateMotivation('procrastination')" class="py-2 px-3 bg-blue-500/10 hover:bg-blue-500/20 border border-blue-500/20 text-blue-300 rounded-xl text-xs font-semibold transition-all" data-i18n="ai.stateProcrastination">
+                            Procrastination ✨
                         </button>
                     </div>
                     <!-- Область результатов мотивации -->
-                    <div id="ai-motivation-result" class="flex-grow bg-black/20 border border-white/5 rounded-xl p-4 text-xs overflow-y-auto max-h-[220px] text-left leading-relaxed text-gray-300 flex items-center justify-center italic text-center">
-                        Выберите ваше текущее состояние выше, чтобы сгенерировать порцию мощной ИИ-мотивации.
+                    <div id="ai-motivation-result" class="flex-grow bg-black/20 border border-white/5 rounded-xl p-4 text-xs overflow-y-auto max-h-[220px] text-left leading-relaxed text-gray-300 flex items-center justify-center italic text-center" data-i18n="ai.motivationDefault">
+                        Choose your current state above to generate a powerful burst of AI motivation.
                     </div>
                 </div>
 
                 <!-- Индикатор загрузки ИИ -->
                 <div id="ai-loader" class="absolute inset-0 bg-black/60 backdrop-blur-sm flex flex-col items-center justify-center gap-3 opacity-0 pointer-events-none transition-opacity duration-300 z-50">
                     <div class="w-8 h-8 border-4 border-purple-500 border-t-transparent rounded-full animate-spin"></div>
-                    <p class="text-xs text-purple-300 font-semibold tracking-wider">AI обрабатывает запрос...</p>
+                    <p class="text-xs text-purple-300 font-semibold tracking-wider" data-i18n="ai.loading">AI is processing your request...</p>
                 </div>
 
             </div>
@@ -303,9 +311,9 @@
         <div id="download" class="flex flex-col sm:flex-row gap-4 items-center justify-center mb-20 w-full">
             <a href="#" class="w-full sm:w-auto px-8 py-4 rounded-xl bg-purple-600 hover:bg-purple-500 text-white font-bold text-lg transition-all shadow-xl shadow-purple-600/30 hover:shadow-purple-500/50 flex items-center justify-center gap-3 group">
                 <i class="fa-brands fa-windows text-xl group-hover:scale-110 transition-transform"></i>
-                Download for Windows (Store)
+                <span data-i18n="download.button">Download for Windows (Store)</span>
             </a>
-            <span class="text-xs text-gray-500">Совместимо с Windows 10 & 11 (x64)</span>
+            <span class="text-xs text-gray-500" data-i18n="download.compatibility">Compatible with Windows 10 & 11 (x64)</span>
         </div>
 
         <!-- Преимущества / Функции (Features) -->
@@ -314,56 +322,56 @@
                 <div class="w-12 h-12 rounded-xl bg-purple-500/20 flex items-center justify-center text-purple-400 text-xl mb-4">
                     <i class="fa-solid fa-compress"></i>
                 </div>
-                <h3 class="text-lg font-bold mb-2">Minimize Mode</h3>
-                <p class="text-sm text-gray-400">Компактный режим убирает всё лишнее, оставляя на экране только аккуратный круглый таймер с текущим временем.</p>
+                <h3 class="text-lg font-bold mb-2" data-i18n="features.minimize.title">Minimize Mode</h3>
+                <p class="text-sm text-gray-400" data-i18n="features.minimize.desc">Compact mode removes clutter and leaves only a neat circular timer with the current time.</p>
             </div>
             <div id="feature-2" class="p-6 rounded-2xl bg-purple-200/40 backdrop-blur-md border border-purple-200/30 shadow-lg shadow-purple-900/20 hover:bg-purple-200/15 hover:border-purple-200/50 transition-all">
                 <div class="w-12 h-12 rounded-xl bg-purple-500/20 flex items-center justify-center text-purple-400 text-xl mb-4">
                     <i class="fa-solid fa-eye-slash"></i>
                 </div>
-                <h3 class="text-lg font-bold mb-2">Always on Top</h3>
-                <p class="text-sm text-gray-400">Закрепите таймер поверх окон с регулируемой полупрозрачностью. Он будет перед глазами, но не помешает работать.</p>
+                <h3 class="text-lg font-bold mb-2" data-i18n="features.top.title">Always on Top</h3>
+                <p class="text-sm text-gray-400" data-i18n="features.top.desc">Pin the timer above your windows with adjustable transparency. It stays visible without getting in the way.</p>
             </div>
             <div id="feature-3" class="p-6 rounded-2xl bg-purple-200/40 backdrop-blur-md border border-purple-200/30 shadow-lg shadow-purple-900/20 hover:bg-purple-200/15 hover:border-purple-200/50 transition-all">
                 <div class="w-12 h-12 rounded-xl bg-purple-500/20 flex items-center justify-center text-purple-400 text-xl mb-4">
                     <i class="fa-solid fa-bell-slash"></i>
                 </div>
-                <h3 class="text-lg font-bold mb-2">Silent Notifications</h3>
-                <p class="text-sm text-gray-400">Полная тишина во время работы. Приложение деликатно напомнит о перерыве с помощью аккуратного тост-уведомления.</p>
+                <h3 class="text-lg font-bold mb-2" data-i18n="features.silent.title">Silent Notifications</h3>
+                <p class="text-sm text-gray-400" data-i18n="features.silent.desc">Work in complete silence. The app gently reminds you to take a break with a subtle toast notification.</p>
             </div>
         </section>
 
         <!-- Галерея скриншотов из Store -->
         <section id="screenshots" class="w-full border-t border-white/10 pt-16">
-            <h2 class="text-2xl md:text-3xl font-bold tracking-tight text-gray-300 mb-8">Скриншоты Windows Store</h2>
+            <h2 class="text-2xl md:text-3xl font-bold tracking-tight text-gray-300 mb-8" data-i18n="screenshots.title">Windows Store Screenshots</h2>
             <div class="grid sm:grid-cols-3 gap-6">
                 <!-- Скриншот 1 -->
                 <div id="screenshot-1" class="group relative rounded-xl overflow-hidden border border-white/10 bg-black/40 hover:border-purple-500/50 transition-all shadow-lg hover:shadow-purple-500/10">
                     <div class="absolute inset-x-0 top-0 bg-gradient-to-b from-black/80 to-transparent p-4 z-10 text-right">
-                        <h4 class="text-sm font-bold text-white">Transparent Mode</h4>
+                        <h4 class="text-sm font-bold text-white" data-i18n="screenshots.transparent.title">Transparent Mode</h4>
                     </div>
-                    <button type="button" class="open-screenshot-modal block w-full aspect-video bg-gray-800 overflow-hidden text-left" data-full-image="assets/TRANSPARENT.png" data-modal-title="Transparent Mode full-size screenshot" data-modal-alt="Transparent Mode full-size screenshot" aria-label="Open Transparent Mode screenshot full size">
-                        <img src="assets/TRANSPARENT.png" alt="Transparent Mode screenshot" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300" />
+                    <button type="button" class="open-screenshot-modal block w-full aspect-video bg-gray-800 overflow-hidden text-left" data-full-image="assets/TRANSPARENT.png" data-modal-title="Transparent Mode full-size screenshot" data-modal-alt="Transparent Mode full-size screenshot" data-i18n-modal-title="screenshots.transparent.modalTitle" data-i18n-modal-alt="screenshots.transparent.modalAlt" data-i18n-aria-label="screenshots.transparent.aria" aria-label="Open Transparent Mode screenshot full size">
+                        <img src="assets/TRANSPARENT.png" alt="Transparent Mode screenshot" data-i18n-alt="screenshots.transparent.alt" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300" />
                     </button>
                 </div>
 
                 <!-- Скриншот 2 -->
                 <div id="screenshot-2" class="group relative rounded-xl overflow-hidden border border-white/10 bg-black/40 hover:border-purple-500/50 transition-all shadow-lg hover:shadow-purple-500/10">
                     <div class="absolute inset-x-0 top-0 bg-gradient-to-b from-black/80 to-transparent p-4 z-10 text-right">
-                        <h4 class="text-sm font-bold text-white">Minimize Mode</h4>
+                        <h4 class="text-sm font-bold text-white" data-i18n="screenshots.minimize.title">Minimize Mode</h4>
                     </div>
-                    <button type="button" class="open-screenshot-modal block w-full aspect-video bg-gray-800 overflow-hidden text-left" data-full-image="assets/MINIMIZE.png" data-modal-title="Minimize Mode full-size screenshot" data-modal-alt="Minimize Mode full-size screenshot" aria-label="Open Minimize Mode screenshot full size">
-                        <img src="assets/MINIMIZE.png" alt="Minimize Mode screenshot" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300" />
+                    <button type="button" class="open-screenshot-modal block w-full aspect-video bg-gray-800 overflow-hidden text-left" data-full-image="assets/MINIMIZE.png" data-modal-title="Minimize Mode full-size screenshot" data-modal-alt="Minimize Mode full-size screenshot" data-i18n-modal-title="screenshots.minimize.modalTitle" data-i18n-modal-alt="screenshots.minimize.modalAlt" data-i18n-aria-label="screenshots.minimize.aria" aria-label="Open Minimize Mode screenshot full size">
+                        <img src="assets/MINIMIZE.png" alt="Minimize Mode screenshot" data-i18n-alt="screenshots.minimize.alt" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300" />
                     </button>
                 </div>
 
                 <!-- Скриншот 3 -->
                 <div id="screenshot-3" class="group relative rounded-xl overflow-hidden border border-white/10 bg-black/40 hover:border-purple-500/50 transition-all shadow-lg hover:shadow-purple-500/10">
                     <div class="absolute inset-x-0 top-0 bg-gradient-to-b from-black/80 to-transparent p-4 z-10 pointer-events-none text-right">
-                        <h4 class="text-sm font-bold text-white">Silen Mode</h4>
+                        <h4 class="text-sm font-bold text-white" data-i18n="screenshots.silent.title">Silent Mode</h4>
                     </div>
-                    <button type="button" class="open-screenshot-modal block w-full aspect-video bg-gray-800 overflow-hidden text-left" data-full-image="assets/Silent%20Mode.png" data-modal-title="Silen Mode full-size screenshot" data-modal-alt="Silen Mode full-size screenshot" aria-label="Open Silen Mode screenshot full size">
-                        <img src="assets/Silent%20Mode.png" alt="Silen Mode screenshot" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300" />
+                    <button type="button" class="open-screenshot-modal block w-full aspect-video bg-gray-800 overflow-hidden text-left" data-full-image="assets/Silent%20Mode.png" data-modal-title="Silent Mode full-size screenshot" data-modal-alt="Silent Mode full-size screenshot" data-i18n-modal-title="screenshots.silent.modalTitle" data-i18n-modal-alt="screenshots.silent.modalAlt" data-i18n-aria-label="screenshots.silent.aria" aria-label="Open Silent Mode screenshot full size">
+                        <img src="assets/Silent%20Mode.png" alt="Silent Mode screenshot" data-i18n-alt="screenshots.silent.alt" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300" />
                     </button>
                 </div>
             </div>
@@ -374,11 +382,11 @@
     <!-- Модальное окно полноразмерного скриншота -->
     <div id="screenshot-modal" class="fixed inset-0 bg-black/90 z-[100] opacity-0 pointer-events-none transition-opacity duration-150 flex items-center justify-center p-4" role="dialog" aria-modal="true" aria-labelledby="screenshot-modal-title">
         <div id="screenshot-modal-content" class="relative max-w-6xl w-full max-h-[92vh]">
-            <h3 id="screenshot-modal-title" class="sr-only">Screenshot full-size preview</h3>
-            <button id="close-screenshot-modal" type="button" class="absolute -top-3 -right-3 w-9 h-9 rounded-full bg-black/80 border border-white/20 text-white hover:bg-black flex items-center justify-center" aria-label="Close screenshot modal">
+            <h3 id="screenshot-modal-title" class="sr-only" data-i18n="modal.title">Screenshot full-size preview</h3>
+            <button id="close-screenshot-modal" type="button" class="absolute -top-3 -right-3 w-9 h-9 rounded-full bg-black/80 border border-white/20 text-white hover:bg-black flex items-center justify-center" data-i18n-aria-label="modal.closeAria" aria-label="Close screenshot modal">
                 <i class="fa-solid fa-xmark"></i>
             </button>
-            <img id="screenshot-modal-image" src="" alt="Screenshot full-size preview" class="w-full h-auto max-h-[92vh] object-contain rounded-xl border border-white/10 shadow-2xl" decoding="async" fetchpriority="high" />
+            <img id="screenshot-modal-image" src="" alt="Screenshot full-size preview" data-i18n-alt="modal.imageAlt" class="w-full h-auto max-h-[92vh] object-contain rounded-xl border border-white/10 shadow-2xl" decoding="async" fetchpriority="high" />
         </div>
     </div>
 
@@ -386,11 +394,11 @@
     <footer class="border-t border-white/10 bg-black/40 py-8">
         <div class="max-w-6xl mx-auto px-6 flex flex-col sm:flex-row justify-between items-center gap-4 text-sm text-gray-500">
             <div>
-                &copy; 2026 Tomatodo App. Все права защищены.
+                <span data-i18n="footer.rights">&copy; 2026 Tomatodo App. All rights reserved.</span>
             </div>
             <div class="flex gap-6">
-                <a href="#" class="hover:text-white transition-colors">Конфиденциальность</a>
-                <a href="#" class="hover:text-white transition-colors">Поддержка</a>
+                <a href="#" class="hover:text-white transition-colors" data-i18n="footer.privacy">Privacy</a>
+                <a href="#" class="hover:text-white transition-colors" data-i18n="footer.support">Support</a>
             </div>
         </div>
     </footer>
@@ -442,6 +450,285 @@
         const closeScreenshotModalBtn = document.getElementById('close-screenshot-modal');
         const screenshotModalImage = document.getElementById('screenshot-modal-image');
         const screenshotModalTitle = document.getElementById('screenshot-modal-title');
+        const languageSelect = document.getElementById('language-select');
+
+        const I18N = {
+            en: {
+                'nav.features': 'Features',
+                'nav.tryOnline': 'Try online',
+                'nav.aiCompanion': 'AI Companion',
+                'nav.screenshots': 'Screenshots',
+                'nav.install': 'Install',
+                'nav.language': 'Language',
+                'hero.subtitle': 'A minimal Pomodoro timer for Windows, now boosted with AI for deeper focus.',
+                'preview.title': 'Main app screen',
+                'preview.hint': 'Click to open full-size screenshot',
+                'timer.modeDefault': 'Default',
+                'timer.modeMinimize': 'Minimize',
+                'timer.modeTransparent': 'Transparent',
+                'timer.session': 'Session',
+                'timer.start': 'Start',
+                'timer.pause': 'Pause',
+                'timer.reset': 'Reset',
+                'toast.title': 'Time is up!',
+                'toast.body': 'Great job. Time for a well-deserved short break (5 min).',
+                'ai.poweredBy': 'Powered by Gemini 2.5 Flash',
+                'ai.apiKey': 'API Key',
+                'ai.apiHint': 'If you want to use your own Gemini API key:',
+                'ai.apiPlaceholder': 'AIzaSy...',
+                'ai.tabPlanner': 'Session planner',
+                'ai.tabMotivation': 'Motivation boost',
+                'ai.goalPlaceholder': 'What task should I split into Pomodoros? (e.g., Write report)',
+                'ai.generate': 'Generate ✨',
+                'ai.planDefault': 'Hi! Enter your goal above and I will build a custom plan split into classic 25-minute Pomodoro sprints.',
+                'ai.stateLaziness': 'Laziness ✨',
+                'ai.stateFatigue': 'Fatigue ✨',
+                'ai.stateProcrastination': 'Procrastination ✨',
+                'ai.motivationDefault': 'Choose your current state above to generate a powerful burst of AI motivation.',
+                'ai.loading': 'AI is processing your request...',
+                'ai.validationGoal': 'Please enter your task or goal!',
+                'ai.errorPrefix': 'An error occurred:',
+                'ai.errorSuffix': 'Please check your internet connection or provide your own API key above.',
+                'ai.systemPlanner': 'You are a time-management and Pomodoro expert. Break the user goal into specific 25-minute work sprints. Keep it concise and use bullet points. Reply in English.',
+                'ai.promptPlanner': 'My goal: "{goal}". Split it into 3-4 Pomodoro sessions of 25 minutes each. Explain what to do in each session.',
+                'ai.systemMotivation': 'You are a friendly and wise productivity mentor. Your goal is to energize the user with one powerful motivational sentence. Reply in English.',
+                'ai.promptMotivation': 'My current state is: "{state}". Support me and help me start working with the Pomodoro timer. Give one powerful motivational sentence.',
+                'api.connectionError': 'Could not connect to the API after several attempts. Please check your network connection or provide your own API key.',
+                'download.button': 'Download for Windows (Store)',
+                'download.compatibility': 'Compatible with Windows 10 & 11 (x64)',
+                'features.minimize.title': 'Minimize Mode',
+                'features.minimize.desc': 'Compact mode removes clutter and leaves only a neat circular timer with the current time.',
+                'features.top.title': 'Always on Top',
+                'features.top.desc': 'Pin the timer above your windows with adjustable transparency. It stays visible without getting in the way.',
+                'features.silent.title': 'Silent Notifications',
+                'features.silent.desc': 'Work in complete silence. The app gently reminds you to take a break with a subtle toast notification.',
+                'screenshots.title': 'Windows Store Screenshots',
+                'screenshots.main.alt': 'Intuitive and Simple screenshot',
+                'screenshots.main.aria': 'Open Intuitive and Simple screenshot full size',
+                'screenshots.main.modalTitle': 'Intuitive & Simple full-size screenshot',
+                'screenshots.main.modalAlt': 'Intuitive & Simple full-size screenshot',
+                'screenshots.transparent.title': 'Transparent Mode',
+                'screenshots.transparent.alt': 'Transparent Mode screenshot',
+                'screenshots.transparent.aria': 'Open Transparent Mode screenshot full size',
+                'screenshots.transparent.modalTitle': 'Transparent Mode full-size screenshot',
+                'screenshots.transparent.modalAlt': 'Transparent Mode full-size screenshot',
+                'screenshots.minimize.title': 'Minimize Mode',
+                'screenshots.minimize.alt': 'Minimize Mode screenshot',
+                'screenshots.minimize.aria': 'Open Minimize Mode screenshot full size',
+                'screenshots.minimize.modalTitle': 'Minimize Mode full-size screenshot',
+                'screenshots.minimize.modalAlt': 'Minimize Mode full-size screenshot',
+                'screenshots.silent.title': 'Silent Mode',
+                'screenshots.silent.alt': 'Silent Mode screenshot',
+                'screenshots.silent.aria': 'Open Silent Mode screenshot full size',
+                'screenshots.silent.modalTitle': 'Silent Mode full-size screenshot',
+                'screenshots.silent.modalAlt': 'Silent Mode full-size screenshot',
+                'modal.title': 'Screenshot full-size preview',
+                'modal.closeAria': 'Close screenshot modal',
+                'modal.imageAlt': 'Screenshot full-size preview',
+                'footer.rights': '© 2026 Tomatodo App. All rights reserved.',
+                'footer.privacy': 'Privacy',
+                'footer.support': 'Support',
+                'cta.tryHere': 'Try it right here:'
+            },
+            es: {
+                'nav.features': 'Funciones',
+                'nav.tryOnline': 'Probar en linea',
+                'nav.aiCompanion': 'Asistente AI',
+                'nav.screenshots': 'Capturas',
+                'nav.install': 'Instalar',
+                'nav.language': 'Idioma',
+                'hero.subtitle': 'Un temporizador Pomodoro minimalista para Windows, ahora potenciado con AI para mayor concentracion.',
+                'preview.title': 'Pantalla principal de la app',
+                'preview.hint': 'Haz clic para abrir la captura en tamano completo',
+                'timer.modeDefault': 'Predeterminado',
+                'timer.modeMinimize': 'Minimizar',
+                'timer.modeTransparent': 'Transparente',
+                'timer.session': 'Sesion',
+                'timer.start': 'Iniciar',
+                'timer.pause': 'Pausar',
+                'timer.reset': 'Reiniciar',
+                'toast.title': 'Se acabo el tiempo!',
+                'toast.body': 'Gran trabajo. Es hora de una pausa corta bien merecida (5 min).',
+                'ai.poweredBy': 'Impulsado por Gemini 2.5 Flash',
+                'ai.apiKey': 'API Key',
+                'ai.apiHint': 'Si quieres usar tu propia API Key de Gemini:',
+                'ai.apiPlaceholder': 'AIzaSy...',
+                'ai.tabPlanner': 'Planificador de sesiones',
+                'ai.tabMotivation': 'Impulso de motivacion',
+                'ai.goalPlaceholder': 'Que tarea debo dividir en Pomodoros? (ej.: Escribir informe)',
+                'ai.generate': 'Generar ✨',
+                'ai.planDefault': 'Hola! Escribe tu objetivo arriba y creare un plan personalizado dividido en sprints Pomodoro de 25 minutos.',
+                'ai.stateLaziness': 'Pereza ✨',
+                'ai.stateFatigue': 'Cansancio ✨',
+                'ai.stateProcrastination': 'Procrastinacion ✨',
+                'ai.motivationDefault': 'Elige tu estado actual arriba para generar una dosis potente de motivacion con AI.',
+                'ai.loading': 'AI esta procesando tu solicitud...',
+                'ai.validationGoal': 'Por favor, escribe tu tarea u objetivo!',
+                'ai.errorPrefix': 'Ocurrio un error:',
+                'ai.errorSuffix': 'Verifica tu conexion a internet o agrega tu propia API Key arriba.',
+                'ai.systemPlanner': 'Eres experto en gestion del tiempo y metodologia Pomodoro. Divide el objetivo del usuario en sprints de trabajo de 25 minutos. Escribe breve y con puntos. Responde en espanol.',
+                'ai.promptPlanner': 'Mi objetivo: "{goal}". Dividelo en 3-4 sesiones Pomodoro de 25 minutos cada una. Explica que hacer en cada sesion.',
+                'ai.systemMotivation': 'Eres un mentor amigable y sabio de productividad. Tu objetivo es animar al usuario con una frase motivadora poderosa. Responde en espanol.',
+                'ai.promptMotivation': 'Mi estado actual es: "{state}". Apoyame y ayudame a empezar a trabajar con el temporizador Pomodoro. Dame una frase motivadora poderosa.',
+                'api.connectionError': 'No se pudo conectar al API despues de varios intentos. Revisa tu conexion o proporciona tu propia API key.',
+                'download.button': 'Descargar para Windows (Store)',
+                'download.compatibility': 'Compatible con Windows 10 y 11 (x64)',
+                'features.minimize.title': 'Modo Minimizar',
+                'features.minimize.desc': 'El modo compacto elimina lo innecesario y deja solo un temporizador circular limpio con la hora actual.',
+                'features.top.title': 'Siempre Arriba',
+                'features.top.desc': 'Fija el temporizador sobre tus ventanas con transparencia ajustable. Permanece visible sin estorbar.',
+                'features.silent.title': 'Notificaciones Silenciosas',
+                'features.silent.desc': 'Trabaja en silencio total. La app te recuerda con suavidad el descanso mediante un toast discreto.',
+                'screenshots.title': 'Capturas de Windows Store',
+                'screenshots.main.alt': 'Captura Intuitive and Simple',
+                'screenshots.main.aria': 'Abrir captura Intuitive and Simple en tamano completo',
+                'screenshots.main.modalTitle': 'Captura Intuitive & Simple en tamano completo',
+                'screenshots.main.modalAlt': 'Captura Intuitive & Simple en tamano completo',
+                'screenshots.transparent.title': 'Modo Transparente',
+                'screenshots.transparent.alt': 'Captura de Modo Transparente',
+                'screenshots.transparent.aria': 'Abrir captura de Modo Transparente en tamano completo',
+                'screenshots.transparent.modalTitle': 'Captura de Modo Transparente en tamano completo',
+                'screenshots.transparent.modalAlt': 'Captura de Modo Transparente en tamano completo',
+                'screenshots.minimize.title': 'Modo Minimizar',
+                'screenshots.minimize.alt': 'Captura de Modo Minimizar',
+                'screenshots.minimize.aria': 'Abrir captura de Modo Minimizar en tamano completo',
+                'screenshots.minimize.modalTitle': 'Captura de Modo Minimizar en tamano completo',
+                'screenshots.minimize.modalAlt': 'Captura de Modo Minimizar en tamano completo',
+                'screenshots.silent.title': 'Modo Silencioso',
+                'screenshots.silent.alt': 'Captura de Modo Silencioso',
+                'screenshots.silent.aria': 'Abrir captura de Modo Silencioso en tamano completo',
+                'screenshots.silent.modalTitle': 'Captura de Modo Silencioso en tamano completo',
+                'screenshots.silent.modalAlt': 'Captura de Modo Silencioso en tamano completo',
+                'modal.title': 'Vista previa en tamano completo',
+                'modal.closeAria': 'Cerrar modal de captura',
+                'modal.imageAlt': 'Vista previa de captura en tamano completo',
+                'footer.rights': '© 2026 Tomatodo App. Todos los derechos reservados.',
+                'footer.privacy': 'Privacidad',
+                'footer.support': 'Soporte',
+                'cta.tryHere': 'Pruebalo aqui mismo:'
+            },
+            ru: {
+                'nav.features': 'Функции',
+                'nav.tryOnline': 'Попробовать онлайн',
+                'nav.aiCompanion': 'AI Помощник',
+                'nav.screenshots': 'Скриншоты',
+                'nav.install': 'Установить',
+                'nav.language': 'Язык',
+                'hero.subtitle': 'Минималистичный Pomodoro-таймер для Windows, теперь усиленный искусственным интеллектом для максимальной концентрации.',
+                'preview.title': 'Главный экран приложения',
+                'preview.hint': 'Нажмите, чтобы открыть скриншот в полном размере',
+                'timer.modeDefault': 'Default',
+                'timer.modeMinimize': 'Minimize',
+                'timer.modeTransparent': 'Transparent',
+                'timer.session': 'Сессия',
+                'timer.start': 'Start',
+                'timer.pause': 'Pause',
+                'timer.reset': 'Reset',
+                'toast.title': 'Время вышло!',
+                'toast.body': 'Отличная работа. Пора сделать заслуженный короткий перерыв (5 мин).',
+                'ai.poweredBy': 'Powered by Gemini 2.5 Flash',
+                'ai.apiKey': 'API Key',
+                'ai.apiHint': 'Если хотите использовать собственный API Ключ Gemini:',
+                'ai.apiPlaceholder': 'AIzaSy...',
+                'ai.tabPlanner': 'Планировщик сессий',
+                'ai.tabMotivation': 'Заряд мотивации',
+                'ai.goalPlaceholder': 'Какую задачу нужно разбить на помидорки? (напр. Написать отчет)',
+                'ai.generate': 'Создать ✨',
+                'ai.planDefault': 'Привет! Напишите вашу цель выше, и я составлю индивидуальный план работы, разбитый по классическим 25-минутным спринтам Pomodoro.',
+                'ai.stateLaziness': 'Лень ✨',
+                'ai.stateFatigue': 'Усталость ✨',
+                'ai.stateProcrastination': 'Прокрастинация ✨',
+                'ai.motivationDefault': 'Выберите ваше текущее состояние выше, чтобы сгенерировать порцию мощной ИИ-мотивации.',
+                'ai.loading': 'AI обрабатывает запрос...',
+                'ai.validationGoal': 'Пожалуйста, введите вашу задачу или цель!',
+                'ai.errorPrefix': 'Произошла ошибка:',
+                'ai.errorSuffix': 'Убедитесь в стабильности интернета или укажите свой API Ключ в настройках выше.',
+                'ai.systemPlanner': 'Ты — эксперт по тайм-менеджменту и методологии Pomodoro. Твоя задача — разбить цель пользователя на конкретные 25-минутные рабочие спринты. Пиши кратко, в виде пунктов. Отвечай на русском языке.',
+                'ai.promptPlanner': 'Моя цель: "{goal}". Разбей её на 3-4 сессии Pomodoro по 25 минут каждая. Напиши, что именно делать в каждую сессию.',
+                'ai.systemMotivation': 'Ты — дружелюбный и мудрый AI-наставник по продуктивности. Твоя цель — подбодрить пользователя, дать ему мощный заряд мотивации в одно предложение. Отвечай на русском языке.',
+                'ai.promptMotivation': 'Я чувствую сейчас следующее состояние: "{state}". Поддержи меня и помоги начать работать по таймеру Pomodoro. Дай одно мощное мотивирующее предложение.',
+                'api.connectionError': 'Не удалось подключиться к API после нескольких попыток. Пожалуйста, проверьте подключение к сети или предоставьте собственный API Ключ.',
+                'download.button': 'Download for Windows (Store)',
+                'download.compatibility': 'Совместимо с Windows 10 & 11 (x64)',
+                'features.minimize.title': 'Minimize Mode',
+                'features.minimize.desc': 'Компактный режим убирает всё лишнее, оставляя на экране только аккуратный круглый таймер с текущим временем.',
+                'features.top.title': 'Always on Top',
+                'features.top.desc': 'Закрепите таймер поверх окон с регулируемой полупрозрачностью. Он будет перед глазами, но не помешает работать.',
+                'features.silent.title': 'Silent Notifications',
+                'features.silent.desc': 'Полная тишина во время работы. Приложение деликатно напомнит о перерыве с помощью аккуратного тост-уведомления.',
+                'screenshots.title': 'Скриншоты Windows Store',
+                'screenshots.main.alt': 'Скриншот Intuitive and Simple',
+                'screenshots.main.aria': 'Открыть скриншот Intuitive and Simple в полном размере',
+                'screenshots.main.modalTitle': 'Intuitive & Simple полноразмерный скриншот',
+                'screenshots.main.modalAlt': 'Intuitive & Simple полноразмерный скриншот',
+                'screenshots.transparent.title': 'Transparent Mode',
+                'screenshots.transparent.alt': 'Скриншот Transparent Mode',
+                'screenshots.transparent.aria': 'Открыть скриншот Transparent Mode в полном размере',
+                'screenshots.transparent.modalTitle': 'Transparent Mode полноразмерный скриншот',
+                'screenshots.transparent.modalAlt': 'Transparent Mode полноразмерный скриншот',
+                'screenshots.minimize.title': 'Minimize Mode',
+                'screenshots.minimize.alt': 'Скриншот Minimize Mode',
+                'screenshots.minimize.aria': 'Открыть скриншот Minimize Mode в полном размере',
+                'screenshots.minimize.modalTitle': 'Minimize Mode полноразмерный скриншот',
+                'screenshots.minimize.modalAlt': 'Minimize Mode полноразмерный скриншот',
+                'screenshots.silent.title': 'Silent Mode',
+                'screenshots.silent.alt': 'Скриншот Silent Mode',
+                'screenshots.silent.aria': 'Открыть скриншот Silent Mode в полном размере',
+                'screenshots.silent.modalTitle': 'Silent Mode полноразмерный скриншот',
+                'screenshots.silent.modalAlt': 'Silent Mode полноразмерный скриншот',
+                'modal.title': 'Полноразмерный просмотр скриншота',
+                'modal.closeAria': 'Закрыть модальное окно скриншота',
+                'modal.imageAlt': 'Полноразмерный просмотр скриншота',
+                'footer.rights': '© 2026 Tomatodo App. Все права защищены.',
+                'footer.privacy': 'Конфиденциальность',
+                'footer.support': 'Поддержка',
+                'cta.tryHere': 'Try it right here:'
+            }
+        };
+
+        let currentLang = 'en';
+
+        function t(key) {
+            return I18N[currentLang]?.[key] ?? I18N.en[key] ?? key;
+        }
+
+        function applyTranslations() {
+            document.documentElement.lang = currentLang;
+
+            document.querySelectorAll('[data-i18n]').forEach((el) => {
+                el.textContent = t(el.dataset.i18n);
+            });
+
+            document.querySelectorAll('[data-i18n-placeholder]').forEach((el) => {
+                el.placeholder = t(el.dataset.i18nPlaceholder);
+            });
+
+            document.querySelectorAll('[data-i18n-aria-label]').forEach((el) => {
+                el.setAttribute('aria-label', t(el.dataset.i18nAriaLabel));
+            });
+
+            document.querySelectorAll('[data-i18n-alt]').forEach((el) => {
+                el.setAttribute('alt', t(el.dataset.i18nAlt));
+            });
+
+            document.querySelectorAll('[data-i18n-modal-title]').forEach((el) => {
+                el.dataset.modalTitle = t(el.dataset.i18nModalTitle);
+            });
+
+            document.querySelectorAll('[data-i18n-modal-alt]').forEach((el) => {
+                el.dataset.modalAlt = t(el.dataset.i18nModalAlt);
+            });
+
+            updateToggleButtonText();
+        }
+
+        function updateToggleButtonText() {
+            if (isRunning) {
+                btnToggle.innerHTML = `<i class="fa-solid fa-pause mr-1"></i> ${t('timer.pause')}`;
+            } else {
+                btnToggle.innerHTML = `<i class="fa-solid fa-play mr-1"></i> ${t('timer.start')}`;
+            }
+        }
 
         function updateDisplay() {
             const minutes = Math.floor(timeLeft / 60);
@@ -459,7 +746,7 @@
             if (isRunning) {
                 // Ставим на паузу
                 clearInterval(timerId);
-                btnToggle.innerHTML = '<i class="fa-solid fa-play mr-1"></i> Start';
+                btnToggle.innerHTML = `<i class="fa-solid fa-play mr-1"></i> ${t('timer.start')}`;
                 btnToggle.classList.remove('bg-amber-600', 'hover:bg-amber-500');
                 btnToggle.classList.add('bg-green-600', 'hover:bg-green-500');
                 pomodoroApp.classList.remove('timer-active');
@@ -467,7 +754,7 @@
             } else {
                 // Запускаем
                 isRunning = true;
-                btnToggle.innerHTML = '<i class="fa-solid fa-pause mr-1"></i> Pause';
+                btnToggle.innerHTML = `<i class="fa-solid fa-pause mr-1"></i> ${t('timer.pause')}`;
                 btnToggle.classList.remove('bg-green-600', 'hover:bg-green-500');
                 btnToggle.classList.add('bg-amber-600', 'hover:bg-amber-500');
                 pomodoroApp.classList.add('timer-active');
@@ -628,7 +915,7 @@
                     });
                     if (response.ok) {
                         const data = await response.json();
-                        return data.candidates?.[0]?.content?.parts?.[0]?.text || "Ошибка генерации";
+                        return data.candidates?.[0]?.content?.parts?.[0]?.text || 'Generation error';
                     }
                 } catch (e) {
                     // Ошибки не логируются в консоль согласно инструкции по безопасности
@@ -636,7 +923,7 @@
                 await new Promise(resolve => setTimeout(resolve, delay));
                 delay *= 2;
             }
-            throw new Error("Не удалось подключиться к API после нескольких попыток. Пожалуйста, проверьте подключение к сети или предоставьте собственный API Ключ.");
+            throw new Error(t('api.connectionError'));
         }
 
         // Переключение вкладок ИИ (ИСПРАВЛЕНО: Теперь используются новые классы стилей для идентичного рендеринга)
@@ -658,14 +945,14 @@
         async function generateFocusPlan() {
             const goal = aiGoalInput.value.trim();
             if (!goal) {
-                aiPlanResult.innerHTML = "<span class='text-red-400'>Пожалуйста, введите вашу задачу или цель!</span>";
+                aiPlanResult.innerHTML = `<span class='text-red-400'>${t('ai.validationGoal')}</span>`;
                 return;
             }
 
             aiLoader.classList.remove('opacity-0', 'pointer-events-none');
             
-            const systemPrompt = "Ты — эксперт по тайм-менеджменту и методологии Pomodoro. Твоя задача — разбить цель пользователя на конкретные 25-минутные рабочие спринты. Пиши кратко, в виде пунктов. Отвечай на русском языке.";
-            const userPrompt = `Моя цель: "${goal}". Разбей её на 3-4 сессии Pomodoro по 25 минут каждая. Напиши, что именно делать в каждую сессию.`;
+            const systemPrompt = t('ai.systemPlanner');
+            const userPrompt = t('ai.promptPlanner').replace('{goal}', goal);
 
             try {
                 const responseText = await callGemini(userPrompt, systemPrompt);
@@ -676,7 +963,7 @@
                     .replace(/\* /g, '• ')
                     .replace(/\n/g, '<br>');
             } catch (err) {
-                aiPlanResult.innerHTML = `<span class='text-red-400'>Произошла ошибка: ${err.message}. Убедитесь в стабильности интернета или укажите свой API Ключ в настройках выше.</span>`;
+                aiPlanResult.innerHTML = `<span class='text-red-400'>${t('ai.errorPrefix')} ${err.message}. ${t('ai.errorSuffix')}</span>`;
             } finally {
                 aiLoader.classList.add('opacity-0', 'pointer-events-none');
             }
@@ -686,14 +973,14 @@
         async function generateMotivation(state) {
             aiLoader.classList.remove('opacity-0', 'pointer-events-none');
             
-            const systemPrompt = "Ты — дружелюбный и мудрый AI-наставник по продуктивности. Твоя цель — подбодрить пользователя, дать ему мощный заряд мотивации в одно предложение. Отвечай на русском языке.";
-            const userPrompt = `Я чувствую сейчас следующее состояние: "${state}". Поддержи меня и помоги начать работать по таймеру Pomodoro. Дай одно мощное мотивирующее предложение.`;
+            const systemPrompt = t('ai.systemMotivation');
+            const userPrompt = t('ai.promptMotivation').replace('{state}', state);
 
             try {
                 const responseText = await callGemini(userPrompt, systemPrompt);
                 aiMotivationResult.innerHTML = `«${responseText.trim()}»`;
             } catch (err) {
-                aiMotivationResult.innerHTML = `<span class='text-red-400'>Произошла ошибка: ${err.message}. Убедитесь в стабильности интернета или укажите свой API Ключ в настройках выше.</span>`;
+                aiMotivationResult.innerHTML = `<span class='text-red-400'>${t('ai.errorPrefix')} ${err.message}. ${t('ai.errorSuffix')}</span>`;
             } finally {
                 aiLoader.classList.add('opacity-0', 'pointer-events-none');
             }
@@ -726,8 +1013,6 @@
 
         openScreenshotButtons.forEach((button) => {
             const fullImageSrc = button.dataset.fullImage;
-            const modalTitle = button.dataset.modalTitle;
-            const modalAlt = button.dataset.modalAlt;
 
             if (fullImageSrc) {
                 warmupScreenshot(fullImageSrc);
@@ -735,7 +1020,7 @@
 
             button.addEventListener('click', () => {
                 if (fullImageSrc) {
-                    openScreenshotModal(fullImageSrc, modalTitle, modalAlt);
+                    openScreenshotModal(fullImageSrc, button.dataset.modalTitle, button.dataset.modalAlt);
                 }
             });
         });
@@ -752,6 +1037,20 @@
                 closeScreenshotModal();
             }
         });
+
+        if (languageSelect) {
+            const savedLang = localStorage.getItem('pomodoro-docs-lang');
+            currentLang = ['en', 'es', 'ru'].includes(savedLang) ? savedLang : 'en';
+            languageSelect.value = currentLang;
+
+            languageSelect.addEventListener('change', (event) => {
+                currentLang = ['en', 'es', 'ru'].includes(event.target.value) ? event.target.value : 'en';
+                localStorage.setItem('pomodoro-docs-lang', currentLang);
+                applyTranslations();
+            });
+        }
+
+        applyTranslations();
 
         // Инициализация отображения таймера при загрузке
         updateDisplay();
